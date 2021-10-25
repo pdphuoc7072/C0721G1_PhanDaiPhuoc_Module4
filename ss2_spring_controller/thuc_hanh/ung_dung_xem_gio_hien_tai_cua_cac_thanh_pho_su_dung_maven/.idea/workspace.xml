@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="timezone-maven:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c61ef492-001b-4f58-b59c-9dff2ba887e7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_gradle/src/main/java/com/codegym/controller/EmailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_gradle/src/main/webapp/WEB-INF/applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_gradle/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_gradle/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_gradle/src/main/webapp/WEB-INF/views/success.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_gradle/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_maven/src/main/java/com/codegym/controller/HomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_maven/src/main/webapp/WEB-INF/configs/spring-config-mvc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_maven/src/main/webapp/WEB-INF/views/home.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_kiem_tra_email_hop_le_su_dung_maven/src/main/webapp/WEB-INF/views/success.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_xem_gio_hien_tai_cua_cac_thanh_pho_su_dung_gradle/src/main/java/com/codegym/controller/TimeZoneController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_xem_gio_hien_tai_cua_cac_thanh_pho_su_dung_gradle/src/main/webapp/WEB-INF/applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_xem_gio_hien_tai_cua_cac_thanh_pho_su_dung_gradle/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_xem_gio_hien_tai_cua_cac_thanh_pho_su_dung_gradle/src/main/webapp/WEB-INF/views/world-clock.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ung_dung_xem_gio_hien_tai_cua_cac_thanh_pho_su_dung_gradle/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/codegym/controller/TimeZoneController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/configs/spring-config-mvc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/world-clock.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ss1_tong_quan_spring_mvc/bai_tap/ung_dung_tu_dien_don_gian/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss1_tong_quan_spring_mvc/bai_tap/ung_dung_tu_dien_don_gian/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ss1_tong_quan_spring_mvc/thuc_hanh/tao_ung_dung_quan_ly_khach_hang/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss1_tong_quan_spring_mvc/thuc_hanh/tao_ung_dung_quan_ly_khach_hang/customer-management" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Class" />
+        <option value="Jsp File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectId" id="1zuQo86vujxPndClWRFUMRPkvFz" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ung_dung_quan_ly_danh_sach_khach_hang/customer-management" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat 9.0.531" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.531" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="timezone-maven:war">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_timezone-maven" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="52522" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="timezone-maven:war" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c61ef492-001b-4f58-b59c-9dff2ba887e7" name="Default Changelist" comment="" />
+      <created>1634995664130</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1634995664130</updated>
+      <workItem from="1634995666761" duration="483000" />
+      <workItem from="1634996202357" duration="11000" />
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="223" y="63" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1634996035741">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="223" y="63" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.816@0.0.1536.816" timestamp="1634996035741" />
+    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1634996211819">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1634996211819" />
+    <state width="1024" height="208" key="GridCell.Tab.0.bottom" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.0.bottom/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.0.center" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.0.center/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.0.left" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.0.left/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.0.right" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.0.right/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.1.bottom" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.1.bottom/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.1.center" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.1.center/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.1.left" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.1.left/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.1.right" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.1.right/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.2.bottom" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.2.bottom/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.2.center" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.2.center/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.2.left" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.2.left/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+    <state width="1024" height="208" key="GridCell.Tab.2.right" timestamp="1634996152155">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state width="1024" height="208" key="GridCell.Tab.2.right/0.0.1536.816@0.0.1536.816" timestamp="1634996152155" />
+  </component>
+</project>
