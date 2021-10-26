@@ -2,12 +2,14 @@ package com.codegym.repository.impl;
 
 import com.codegym.model.Product;
 import com.codegym.repository.IProductRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class ProductRepositoryImpl implements IProductRepository {
     private static final Map<Integer, Product> products = new HashMap<>();
 

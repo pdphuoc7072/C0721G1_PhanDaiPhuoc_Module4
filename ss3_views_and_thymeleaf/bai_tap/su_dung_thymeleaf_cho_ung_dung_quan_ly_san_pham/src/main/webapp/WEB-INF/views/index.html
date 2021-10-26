@@ -14,7 +14,11 @@
         Search product
     </a>
 </p>
-
+<div class="notify">
+    <div th:if="${message}">
+        <span th:text="${message}"></span>
+    </div>
+</div>
 <table id="products">
     <thead>
     <tr>

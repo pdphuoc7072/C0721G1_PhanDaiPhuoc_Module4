@@ -4,6 +4,7 @@ import com.codegym.model.Product;
 import com.codegym.service.impl.ProductServiceImpl;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,8 @@ import java.util.List;
 @Controller
 @RequestMapping (value = "/product")
 public class ProductController {
-    private final ProductServiceImpl productService = new ProductServiceImpl();
+    @Autowired
+    private ProductServiceImpl productService;
 
     @GetMapping ("")
     public String index (Model model) {
@@ -32,9 +34,10 @@ public class ProductController {
     }
 
     @PostMapping ("/save")
-    public String save (Product product) {
+    public String save (Product product, RedirectAttributes redirectAttributes) {
         product.setId((int) (Math.random()*10000));
         productService.save(product);
+        redirectAttributes.addFlashAttribute("message", "The product was successful created.");
         return "redirect:/product";
     }
 
@@ -45,8 +48,9 @@ public class ProductController {
     }
 
     @PostMapping ("/update")
-    public String update (Product product) {
+    public String update (Product product, RedirectAttributes redirectAttributes) {
         productService.update(product.getId(), product);
+        redirectAttributes.addFlashAttribute("message", "The product was successful updated.");
         return "redirect:/product";
     }
 
@@ -57,8 +61,9 @@ public class ProductController {
     }
 
     @PostMapping ("/delete")
-    public String delete (Product product) {
+    public String delete (Product product, RedirectAttributes redirectAttributes) {
         productService.remove(product.getId());
+        redirectAttributes.addFlashAttribute("message", "The product was successful deleted.");
         return "redirect:/product";
     }
 

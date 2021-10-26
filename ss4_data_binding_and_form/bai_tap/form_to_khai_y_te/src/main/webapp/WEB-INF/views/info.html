@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TỜ KHAI Y TẾ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<h4>Thông tin khai báo:</h4>
+<p>
+    <a th:href="@{/medical-declaration}">
+        Khai báo lại
+    </a>
+</p>
+<p>
+    <a th:href="@{/medical-declaration/{idForm}/edit (idForm=${medicalDeclaration.idForm})}">
+        Cập nhật thông tin
+    </a>
+</p>
+<p th:if="${message}">
+    <span th:text="${message}"></span>
+</p>
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td>Họ tên:</td>
+        <td th:text="${medicalDeclaration.fullName}"></td>
+    </tr>
+    <tr>
+        <td>Năm sinh:</td>
+        <td th:text="${medicalDeclaration.birth}"></td>
+    </tr>
+    <tr>
+        <td>Giới tính:</td>
+        <td th:text="${medicalDeclaration.gender}"></td>
+    </tr>
+    <tr>
+        <td>Quốc tịch:</td>
+        <td th:text="${medicalDeclaration.nationality}"></td>
+    </tr>
+    <tr>
+        <td>Số hộ chiếu hoặc số CMND hoặc giấy thông hành hợp pháp khác:</td>
+        <td th:text="${medicalDeclaration.idCardNumber}"></td>
+    </tr>
+    <tr>
+        <td>Thông tin đi lại:</td>
+        <td th:text="${medicalDeclaration.travelInfo}"></td>
+    </tr>
+    <tr>
+        <td>Số hiệu phương tiện:</td>
+        <td th:text="${medicalDeclaration.vehicleNumber}"></td>
+    </tr>
+    <tr>
+        <td>Số ghế:</td>
+        <td th:text="${medicalDeclaration.seatNumber}"></td>
+    </tr>
+    <tr>
+        <td>Ngày khởi hành:</td>
+        <td th:text="${medicalDeclaration.departureDay}"></td>
+    </tr>
+    <tr>
+        <td>Ngày kết thúc:</td>
+        <td th:text="${medicalDeclaration.endDay}"></td>
+    </tr>
+    <tr>
+        <td>Trong vòng 14 ngày qua, Anh/Chị có đến tỉnh/thành phố nào?:</td>
+        <td th:text="${medicalDeclaration.cityIn14day}"></td>
+    </tr>
+    <tr>
+        <td>Địa chỉ liên lạc:</td>
+        <td th:text="${medicalDeclaration.address}"></td>
+    </tr>
+    <tr>
+        <td>Điện thoại:</td>
+        <td th:text="${medicalDeclaration.phone}"></td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td th:text="${medicalDeclaration.email}"></td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Sốt:</td>
+        <td th:if="${medicalDeclaration.fever}">Có</td>
+        <td th:unless="${medicalDeclaration.fever}">Không</td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Ho:</td>
+        <td th:if="${medicalDeclaration.cough}">Có</td>
+        <td th:unless="${medicalDeclaration.cough}">Không</td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Khó thở:</td>
+        <td th:if="${medicalDeclaration.stuffy}">Có</td>
+        <td th:unless="${medicalDeclaration.stuffy}">Không</td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Đau họng:</td>
+        <td th:if="${medicalDeclaration.soreThroat}">Có</td>
+        <td th:unless="${medicalDeclaration.soreThroat}">Không</td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Nôn/Buồn nôn:</td>
+        <td th:if="${medicalDeclaration.nausea}">Có</td>
+        <td th:unless="${medicalDeclaration.nausea}">Không</td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Tiêu chảy:</td>
+        <td th:if="${medicalDeclaration.diarrhea}">Có</td>
+        <td th:unless="${medicalDeclaration.diarrhea}">Không</td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Xuất huyết ngoài da:</td>
+        <td th:if="${medicalDeclaration.skinHemorrhage}">Có</td>
+        <td th:unless="${medicalDeclaration.skinHemorrhage}">Không</td>
+    </tr>
+    <tr>
+        <td>Triệu chứng Nổi ban ngoài da:</td>
+        <td th:if="${medicalDeclaration.skinRash}">Có</td>
+        <td th:unless="${medicalDeclaration.skinRash}">Không</td>
+    </tr>
+    <tr>
+        <td>Đến trang trại chăn nuôi / chợ buôn bán động vật sống / cơ sở giết mổ động vật / tiếp xúc động vật:</td>
+        <td th:if="${medicalDeclaration.market}">Có</td>
+        <td th:unless="${medicalDeclaration.market}">Không</td>
+    </tr>
+    <tr>
+        <td>Tiếp xúc gần (<2m) với người mắc bệnh viêm đường hô hấp do nCoV:</td>
+        <td th:if="${medicalDeclaration.nCoVPeople}">Có</td>
+        <td th:unless="${medicalDeclaration.nCoVPeople}">Không</td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
