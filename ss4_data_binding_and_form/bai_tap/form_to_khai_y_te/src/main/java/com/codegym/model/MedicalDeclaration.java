@@ -16,25 +16,26 @@ public class MedicalDeclaration {
     private String address;
     private String phone;
     private String email;
-    private boolean fever;
-    private boolean cough;
-    private boolean stuffy;
-    private boolean soreThroat;
-    private boolean nausea;
-    private boolean diarrhea;
-    private boolean skinHemorrhage;
-    private boolean skinRash;
-    private boolean market;
-    private boolean nCoVPeople;
+    private Boolean fever;
+    private Boolean cough;
+    private Boolean stuffy;
+    private Boolean soreThroat;
+    private Boolean nausea;
+    private Boolean diarrhea;
+    private Boolean skinHemorrhage;
+    private Boolean skinRash;
+    private Boolean market;
+    private Boolean nCoVPeople;
 
     public MedicalDeclaration() {
     }
 
-    public MedicalDeclaration(int idForm, String fullName, String birth, String gender, String nationality, String idCardNumber,
-                              String travelInfo, String vehicleNumber, String seatNumber, String departureDay, String endDay,
-                              String cityIn14day, String address, String phone, String email,
-                              boolean fever, boolean cough, boolean stuffy, boolean soreThroat, boolean nausea,
-                              boolean diarrhea, boolean skinHemorrhage, boolean skinRash, boolean market, boolean nCoVPeople) {
+    public MedicalDeclaration(int idForm, String fullName, String birth, String gender, String nationality,
+                              String idCardNumber, String travelInfo, String vehicleNumber, String seatNumber,
+                              String departureDay, String endDay, String cityIn14day, String address, String phone,
+                              String email, Boolean fever, Boolean cough, Boolean stuffy, Boolean soreThroat,
+                              Boolean nausea, Boolean diarrhea, Boolean skinHemorrhage, Boolean skinRash, Boolean market,
+                              Boolean nCoVPeople) {
         this.idForm = idForm;
         this.fullName = fullName;
         this.birth = birth;
@@ -62,11 +63,11 @@ public class MedicalDeclaration {
         this.nCoVPeople = nCoVPeople;
     }
 
-    public MedicalDeclaration(int idForm, String fullName, String birth, String gender, String nationality, String idCardNumber,
-                              String travelInfo, String departureDay, String endDay, String cityIn14day, String address,
-                              String phone, String email, boolean fever, boolean cough, boolean stuffy, boolean soreThroat,
-                              boolean nausea, boolean diarrhea, boolean skinHemorrhage, boolean skinRash, boolean market,
-                              boolean nCoVPeople) {
+    public MedicalDeclaration(int idForm, String fullName, String birth, String gender, String nationality,
+                              String idCardNumber, String travelInfo, String departureDay, String endDay, String cityIn14day,
+                              String address, String phone, Boolean fever, Boolean cough, Boolean stuffy, Boolean soreThroat,
+                              Boolean nausea, Boolean diarrhea, Boolean skinHemorrhage, Boolean skinRash, Boolean market,
+                              Boolean nCoVPeople) {
         this.idForm = idForm;
         this.fullName = fullName;
         this.birth = birth;
@@ -79,7 +80,6 @@ public class MedicalDeclaration {
         this.cityIn14day = cityIn14day;
         this.address = address;
         this.phone = phone;
-        this.email = email;
         this.fever = fever;
         this.cough = cough;
         this.stuffy = stuffy;
@@ -212,83 +212,83 @@ public class MedicalDeclaration {
         this.email = email;
     }
 
-    public boolean isFever() {
+    public Boolean getFever() {
         return fever;
     }
 
-    public void setFever(boolean fever) {
+    public void setFever(Boolean fever) {
         this.fever = fever;
     }
 
-    public boolean isCough() {
+    public Boolean getCough() {
         return cough;
     }
 
-    public void setCough(boolean cough) {
+    public void setCough(Boolean cough) {
         this.cough = cough;
     }
 
-    public boolean isStuffy() {
+    public Boolean getStuffy() {
         return stuffy;
     }
 
-    public void setStuffy(boolean stuffy) {
+    public void setStuffy(Boolean stuffy) {
         this.stuffy = stuffy;
     }
 
-    public boolean isSoreThroat() {
+    public Boolean getSoreThroat() {
         return soreThroat;
     }
 
-    public void setSoreThroat(boolean soreThroat) {
+    public void setSoreThroat(Boolean soreThroat) {
         this.soreThroat = soreThroat;
     }
 
-    public boolean isNausea() {
+    public Boolean getNausea() {
         return nausea;
     }
 
-    public void setNausea(boolean nausea) {
+    public void setNausea(Boolean nausea) {
         this.nausea = nausea;
     }
 
-    public boolean isDiarrhea() {
+    public Boolean getDiarrhea() {
         return diarrhea;
     }
 
-    public void setDiarrhea(boolean diarrhea) {
+    public void setDiarrhea(Boolean diarrhea) {
         this.diarrhea = diarrhea;
     }
 
-    public boolean isSkinHemorrhage() {
+    public Boolean getSkinHemorrhage() {
         return skinHemorrhage;
     }
 
-    public void setSkinHemorrhage(boolean skinHemorrhage) {
+    public void setSkinHemorrhage(Boolean skinHemorrhage) {
         this.skinHemorrhage = skinHemorrhage;
     }
 
-    public boolean isSkinRash() {
+    public Boolean getSkinRash() {
         return skinRash;
     }
 
-    public void setSkinRash(boolean skinRash) {
+    public void setSkinRash(Boolean skinRash) {
         this.skinRash = skinRash;
     }
 
-    public boolean isMarket() {
+    public Boolean getMarket() {
         return market;
     }
 
-    public void setMarket(boolean market) {
+    public void setMarket(Boolean market) {
         this.market = market;
     }
 
-    public boolean isnCoVPeople() {
+    public Boolean getnCoVPeople() {
         return nCoVPeople;
     }
 
-    public void setnCoVPeople(boolean nCoVPeople) {
+    public void setnCoVPeople(Boolean nCoVPeople) {
         this.nCoVPeople = nCoVPeople;
     }
 }

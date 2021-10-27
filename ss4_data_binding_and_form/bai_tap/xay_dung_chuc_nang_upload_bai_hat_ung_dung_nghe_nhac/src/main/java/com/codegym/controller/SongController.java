@@ -41,7 +41,8 @@ public class SongController {
     public ModelAndView showCreateForm () {
         ModelAndView modelAndView = new ModelAndView("create");
         modelAndView.addObject("songForm", new SongForm());
-        modelAndView.addObject("kindOfMusicArray", new String[] {"Nhac tre", "Nhac thieu nhi", "Nhac co dien", "Nhac Bolero"});
+        modelAndView.addObject("kindOfMusicArray",
+                new String[] {"Nhạc trẻ", "Nhạc thiếu nhi", "Nhạc quốc tế", "Nhạc Bolero", "Nhạc không lời", "Nhạc rap"});
         return modelAndView;
     }
 
