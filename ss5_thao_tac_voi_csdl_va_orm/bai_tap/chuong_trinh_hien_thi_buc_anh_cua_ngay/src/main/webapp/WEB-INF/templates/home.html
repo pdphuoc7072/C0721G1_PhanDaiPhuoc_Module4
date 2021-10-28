@@ -16,11 +16,13 @@
 <div class="container mt-3">
     <div class="card">
         <div class="card-body">
-            <div class="row">
-                <div class="col-5">
-                    <p id="nasa"></p>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <img id="nasa" class="mx-auto d-block">
                 </div>
-                <div class="col-7">
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
                     <form th:action="@{/home}" th:object="${imageOfTheDay}" method="post">
                         <div class="row mb-3">
                             <label class="col-form-label col-2" th:for="*{rating}">
@@ -52,59 +54,48 @@
                                 <textarea class="form-control" th:field="*{message}" rows="5"></textarea>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="d-grid gap-2">
+                        <div class="row mb-3">
+                            <div class="col-2"></div>
+                            <div class="col-4">
                                 <button type="submit" class="btn btn-primary">Comment</button>
                             </div>
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <ul th:each="i: ${imageOfTheDayList}">
-                    <li>
-                        <div th:switch="*{i.rating}" class="d-inline">
-                            <span th:case="1" th:text="*{i.rating}" class="badge bg-light text-dark"></span>
-                            <span th:case="2" th:text="*{i.rating}" class="badge bg-info text-dark"></span>
-                            <span th:case="3" th:text="*{i.rating}" class="badge bg-warning text-dark"></span>
-                            <span th:case="4" th:text="*{i.rating}" class="badge bg-danger"></span>
-                            <span th:case="5" th:text="*{i.rating}" class="badge bg-success"></span>
-                        </div>
-                        <span th:text="*{i.author}"></span>:
-                        <span th:text="*{i.message}"></span>
-                        <button class="btn btn-primary btn-sm" th:onclick="'likeBtn(this, '+*{i.id}+')'"
-                                th:text="*{i.likeCount} ? *{i.likeCount} + ' likes' : '0 like'"
-                                data-bs-toggle="tooltip" data-bs-placement="top" title="Like">
-                        </button>
-                    </li>
-                </ul>
+                <div class="col-6">
+                    <ul th:each="i: ${imageOfTheDayList}">
+                        <li>
+                            <div th:switch="*{i.rating}" class="d-inline">
+                                <span th:case="1" th:text="*{i.rating}" class="badge bg-light text-dark"></span>
+                                <span th:case="2" th:text="*{i.rating}" class="badge bg-info text-dark"></span>
+                                <span th:case="3" th:text="*{i.rating}" class="badge bg-warning text-dark"></span>
+                                <span th:case="4" th:text="*{i.rating}" class="badge bg-danger"></span>
+                                <span th:case="5" th:text="*{i.rating}" class="badge bg-success"></span>
+                            </div>
+                            <span th:text="*{i.author}"></span>:
+                            <span th:text="*{i.message}"></span>
+                            <button class="btn btn-primary btn-sm" th:onclick="'likeBtn(this, '+*{i.id}+')'"
+                                    th:text="*{i.likeCount} ? *{i.likeCount} + ' likes' : '0 like'"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Like">
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-
-    let apiURL = "https://api.nasa.gov/planetary/apod?api_key=pmvTGGmcYSaEEIf03ivJrbtdJcNYWUdacxXtf63l";
+    let query = "https://api.nasa.gov/planetary/apod?api_key=pmvTGGmcYSaEEIf03ivJrbtdJcNYWUdacxXtf63l";
     let request = new XMLHttpRequest();
-    request.open('GET', apiURL);
-    request.onload = function () {
+    request.open('GET', query);
+    request.onload = function() {
         if (request.status === 200) {
             let response = JSON.parse(request.responseText);
-            if (response.media_type == 'image') {
-                document.getElementById("nasa").innerHTML = '<img class="img-fluid" src="' + response.url + '" alt="' + response.title + '">';
-            } else {
-                document.getElementById("nasa").innerHTML = '<iframe width="420" height="345" src="' + response.url + '">\n' +
-                    '</iframe>';
-            }
+            document.getElementById('nasa').setAttribute('src', response.url);
         }
-    }
+    };
     request.send();
 
     function likeBtn(element, id) {
