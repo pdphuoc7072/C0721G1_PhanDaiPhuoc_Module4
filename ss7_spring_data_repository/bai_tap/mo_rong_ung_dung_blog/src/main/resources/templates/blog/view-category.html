@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Blog Management with category: <span th:text="${category.name}"></span> </h3>
+                    </div>
+                </div>
+                <a th:href="@{/blog}" class="btn btn-dark">
+                    Back to list blog
+                </a>
+                <div class="container">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Category</th>
+                            <th>Create day</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="blog : ${blogs}">
+                            <td th:text="${blog.title}"></td>
+                            <td th:text="${blog.content}"></td>
+                            <td th:if="${blog.category}" th:text="${blog.category.name}"></td>
+                            <td th:unless="${blog.category}"></td>
+                            <td th:text="${blog.createDay}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

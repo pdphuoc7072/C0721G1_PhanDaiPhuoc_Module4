@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container-fluid">
+                <h3>Category Management</h3>
+                <a th:href="@{/category/create}" class="btn btn-success">
+                    Add new category
+                </a>
+                <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#modalDeleteMultiple">
+                    Delete Multiple
+                </button>
+                <p th:if="${message}">
+                    <span th:text="${message}"></span>
+                </p>
+                <div class="container">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="category : ${categories}">
+                            <td>
+                                <input type="checkbox" th:value="${category.id}">
+                            </td>
+                            <td th:text="${category.name}"></td>
+                            <td>
+                                <a th:href="@{/category/edit/{id} (id=${category.id})}" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
+                                <button th:onclick="|deleteByModal('${category.id}')|" type="button"
+                                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDelete" th:action="@{/category/delete}" hidden>
+                    <input type="text" name="idCategory" id="idCategory">
+                </form>
+                Are you sure delete this category ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitForm()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete multiple-->
+<div class="modal fade" id="modalDeleteMultiple" tabindex="-1" aria-labelledby="deleteMultipleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMultipleModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDeleteMultiple" th:action="@{/category/deleteMultiple}" hidden>
+                    <input type="text" name="idCategoryMultiple" id="idCategoryMultiple">
+                </form>
+                Are you sure delete ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitFormDeleteMultiple()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteByModal(id) {
+        document.getElementById("idCategory").value = id;
+    }
+
+    function submitForm() {
+        document.getElementById("formDelete").submit();
+    }
+
+    function getIdMultiple() {
+        var array = [];
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            array.push(checkboxes[i].value);
+        }
+        for(let i=0;i<array.length;i++){
+            document.getElementById("idCategoryMultiple").value += array[i] + ",";
+        }
+    }
+
+    function submitFormDeleteMultiple() {
+        document.getElementById("formDeleteMultiple").submit();
+    }
+</script>
+</body>
+</html>

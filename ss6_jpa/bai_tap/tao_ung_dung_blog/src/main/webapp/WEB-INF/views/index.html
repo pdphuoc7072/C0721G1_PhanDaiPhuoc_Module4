@@ -45,6 +45,10 @@
                     <a th:href="@{/blog/{id}/edit (id=${blog.id})}" class="btn btn-warning">Edit</a>
                 </td>
                 <td>
+<!--                    <button th:onclick="|thaydoi1('${blog.id}')|" type="button" class="btn btn-danger"-->
+<!--                            data-bs-toggle="modal" data-bs-target="#deleteModal">-->
+<!--                        Delete-->
+<!--                    </button>-->
                     <a th:href="@{/blog/{id}/delete (id=${blog.id})}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
@@ -53,5 +57,30 @@
     </div>
 </div>
 
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="deleteModalLabel">Modal title</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                ...-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                <button type="button" class="btn btn-primary">Understood</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script>-->
+
+<!--    function thaydoi1(id) {-->
+<!--        alert(id);-->
+<!--    }-->
+
+<!--</script>-->
 </body>
 </html>

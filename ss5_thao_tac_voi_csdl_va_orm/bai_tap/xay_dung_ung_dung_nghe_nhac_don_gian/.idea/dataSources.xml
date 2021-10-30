@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="hibernate.conf.xml/Hibernate" uuid="082b35ae-02c5-4afe-ba79-01857716958a">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+D:/C0721G1_PhanDaiPhuoc_Module4/ss5_thao_tac_voi_csdl_va_orm/bai_tap/xay_dung_ung_dung_nghe_nhac_don_gian/src/main/resources/hibernate.conf.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/music_database</jdbc-url>
+    </data-source>
+  </component>
+</project>

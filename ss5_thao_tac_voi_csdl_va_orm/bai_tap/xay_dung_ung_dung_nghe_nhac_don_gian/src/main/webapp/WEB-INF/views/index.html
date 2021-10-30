@@ -46,7 +46,11 @@
                     <a th:href="@{/music/{id}/edit (id=${music.id})}" class="btn btn-warning">Edit</a>
                 </td>
                 <td>
-                    <a th:href="@{/music/{id}/delete (id=${music.id})}" class="btn btn-danger">Delete</a>
+<!--                    <a th:href="@{/music/{id}/delete (id=${music.id})}" class="btn btn-danger">Delete</a>-->
+                    <button th:onclick="|thaydoi1('${music.id}','${music.name}')|" type="button" class="btn btn-danger"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Delete
+                    </button>
                 </td>
                 <td>
                     <audio controls preload="none">
@@ -58,6 +62,12 @@
         </table>
     </div>
 </div>
+<script>
 
+    function thaydoi1(id, name) {
+        alert(id + name);
+    }
+
+</script>
 </body>
 </html>

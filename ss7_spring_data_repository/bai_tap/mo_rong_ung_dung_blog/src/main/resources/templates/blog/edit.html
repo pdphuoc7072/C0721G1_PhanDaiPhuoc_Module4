@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container">
+                <h3>Add new blog</h3>
+                <a th:href="@{/blog}" class="btn btn-dark">
+                    Back to list blog
+                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <form th:action="@{/blog/update}" th:object="${blog}" method="post">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="title" class="form-label">Title</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="title" th:field="*{title}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="content" class="form-label">Content</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <textarea rows="20" class="form-control" id="content" th:field="*{content}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="category" class="form-label">Category</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select th:field="*{category}" id="category">
+                                            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                                                    th:selected="(${blog.category}) and (${c.id} == *{category.id})"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="createDay" class="form-label">Create day</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="date" class="form-control" id="createDay" th:field="*{createDay}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
