@@ -71,6 +71,11 @@
                 </div>
                 <form class="d-flex m-4">
                     <input class="form-control me-2" type="search" placeholder="Search by title" aria-label="Search" name="search">
+                    <select name="idCategory">
+                        <option selected value="">Chọn</option>
+                        <option th:each="c : ${categories}" th:value="${c.id}"
+                                th:text="${c.name}"></option>
+                    </select>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 <p th:if="${message}">
@@ -122,9 +127,9 @@
     <div class="row">
         <div class="col-10"></div>
         <div class="col-2">
-            <a th:if="${blogs.hasPrevious()}" th:href="@{'/blog'(page=${blogs.number - 1})}">Previous</a>
+            <a th:if="${blogs.hasPrevious()}" th:href="@{'/blog'(page=${blogs.number - 1},search=${search},idCategory=${idCategory})}">Previous</a>
             <span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.totalPages}"></span>
-            <a th:if="${blogs.hasNext()}" th:href="@{'/blog'(page=${blogs.number + 1})}">Next</a>
+            <a th:if="${blogs.hasNext()}" th:href="@{'/blog'(page=${blogs.number + 1},search=${search},idCategory=${idCategory})}">Next</a>
         </div>
     </div>
 </div>

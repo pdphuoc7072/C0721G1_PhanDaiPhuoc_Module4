@@ -61,4 +61,9 @@ public class BlogServiceImpl implements IBlogService {
     public Page<Blog> findAllByOrderByCreateDayDesc(Pageable pageable) {
         return blogRepository.findAllByOrderByCreateDayDesc(pageable);
     }
+
+    @Override
+    public Page<Blog> findAll(Pageable pageable, String title, String idCategory) {
+        return blogRepository.findAll(pageable,"%"+ title + "%", "%" +idCategory + "%");
+    }
 }

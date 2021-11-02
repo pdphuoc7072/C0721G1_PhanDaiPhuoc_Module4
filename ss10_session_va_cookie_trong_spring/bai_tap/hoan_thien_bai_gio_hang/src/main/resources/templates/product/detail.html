@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container">
+                <h3>Thông tin chi tiết sản phẩm</h3>
+                <p>
+                    <a href="/shopping-cart" class="btn btn-dark">Your cart</a>
+                </p>
+                <p>
+                    <a href="/product" class="btn btn-dark">Back to product</a>
+                </p>
+                <div class="container">
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div class="col-4 mb-2" th:object="${product}">
+                                <div class="card shadow">
+                                    <img th:src="${'../'+product.image}" class="card-img-top" th:alt="${product.name}" height="320" width="100%">
+                                    <div class="card-body text-center">
+                                        <a class="card-title" th:text="${'Mã SP: ' + product.id}" style="text-decoration: none"></a>
+                                        <p><span th:text="${'Đơn giá: $' + product.price}" class="text-danger"></span></p>
+                                        <div class="d-grid gap-2">
+                                            <a th:href="@{/add/__${product.id}__ (action='list')}" class="btn btn-primary btn-block"
+                                               style="text-decoration: none">Mua ngay</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 mb-2">
+                                <div class="card">
+                                    <h5 class="card-header" th:text="${product.name}"></h5>
+                                    <div class="card-body" style="background-color: aquamarine">
+                                        <h5 class="card-title">Chương trình khuyến mãi</h5>
+                                        <p class="card-text">
+                                            1. Tặng ngay voucher giảm 10$. <br>
+                                            2. Miễn phí phí giao hàng. <br>
+                                            3. Giao nhanh trong 63 tỉnh/thành <br>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container">
+                <p>
+                    <a href="/product" class="btn btn-dark">Back to product</a>
+                </p>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Cart</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Order</li>
+                    </ol>
+                </nav>
+                <form  th:object="${cart}" method="post">
+                    <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
+                    <h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
+                    <div class="card mb-3">
+                        <div class="row g-0" th:each="product : ${cart.products}">
+                            <div class="col-4">
+                                <img th:src="${product.getKey().image}" class="img-fluid rounded-start" th:alt="${product.getKey().name}">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${product.getKey().name}"></h5>
+                                    <p class="card-text" th:text="${ 'Mã SP: ' + product.getKey().id}"></p>
+                                    <p class="card-text" th:text="${ 'Đơn giá: $' + product.getKey().price}"></p>
+                                    <p class="card-text">
+                                        Số lượng:
+                                        <a id="decrease_button" th:href="@{/sub/__${product.getKey().id}__(action='show')}" th:text="${'-'}" class="btn btn-primary"></a>
+                                        <span th:text="${product.getValue()}"></span>
+                                        <a id="increase_button" th:href="@{/add/__${product.getKey().id}__(action='show')}" th:text="${'+'}" class="btn btn-primary"></a>
+                                    </p>
+                                    <p>
+                                        <a th:href="@{/remove/__${product.getKey().id}__(action='show')}" class="btn btn-primary">Remove</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                                <h5 th:if="${cart.countTotalPayment() > 0}" th:text="${'Total: $' + cart.countTotalPayment()}"></h5>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

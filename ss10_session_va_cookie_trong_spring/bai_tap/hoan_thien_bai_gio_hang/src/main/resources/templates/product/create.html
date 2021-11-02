@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container">
+                <h3>Add new product</h3>
+                <a th:href="@{/product}" class="btn btn-dark">
+                    Back to shop
+                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <form th:action="@{/product/save}" th:object="${productForm}" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="name" class="form-label">Name</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="price" class="form-label">Price</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="price" th:field="*{price}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="description" class="form-label">Description</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="description" th:field="*{description}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="image" class="form-label">Image</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="file" class="form-control" id="image" th:field="*{image}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

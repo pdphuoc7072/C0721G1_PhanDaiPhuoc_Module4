@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-12">
+                        <h3>Song Management</h3>
+                    </div>
+                </div>
+                <div class="row m-4 d-flex">
+                    <div class="col-2">
+                        <a th:href="@{/the-song/create}" class="btn btn-success">
+                            Add new song
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalDeleteMultiple">
+                            Delete Multiple
+                        </button>
+                    </div>
+                </div>
+                <div class="container">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Status</th>
+                            <th>Name of song</th>
+                            <th>Artist</th>
+                            <th>Type of music</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="song : ${songs}">
+                            <td>
+                                <input type="checkbox" th:value="${song.id}">
+                            </td>
+                            <td th:text="${song.songName}"></td>
+                            <td th:text="${song.artist}"></td>
+                            <td th:text="${song.typeOfMusic}"></td>
+                            <td>
+                                <a th:href="@{/the-song/edit/{id} (id=${song.id})}" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
+                                <button th:onclick="|deleteByModal('${song.id}')|" type="button"
+                                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDelete" th:action="@{/the-song/delete}" hidden>
+                    <input type="text" name="idSong" id="idSong">
+                </form>
+                Are you sure delete this song ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitForm()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete multiple-->
+<div class="modal fade" id="modalDeleteMultiple" tabindex="-1" aria-labelledby="deleteMultipleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMultipleModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDeleteMultiple" th:action="@{/the-song/deleteMultiple}" hidden>
+                    <input type="text" name="idSongMultiple" id="idSongMultiple">
+                </form>
+                Are you sure delete this multiple song ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitFormDeleteMultiple()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteByModal(id) {
+        document.getElementById("idSong").value = id;
+    }
+
+    function submitForm() {
+        document.getElementById("formDelete").submit();
+    }
+
+    function getIdMultiple() {
+        var array = [];
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            array.push(checkboxes[i].value);
+        }
+        for(let i=0;i<array.length;i++){
+            document.getElementById("idSongMultiple").value += array[i] + ",";
+        }
+    }
+
+    function submitFormDeleteMultiple() {
+        document.getElementById("formDeleteMultiple").submit();
+    }
+</script>
+
+</body>
+</html>

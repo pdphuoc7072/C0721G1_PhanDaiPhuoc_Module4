@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: header">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container">
+                <h3>Add new song</h3>
+                <a th:href="@{/the-song}" class="btn btn-dark">
+                    Back to list song
+                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <form th:action="@{/the-song/save}" th:object="${song}" method="post">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="songName" class="form-label">Name of song: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="songName"
+                                               aria-describedby="songNameError" th:field="*{songName}">
+                                        <div id="songNameError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('songName')}" th:errors="*{songName}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="artist" class="form-label">Artist: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="artist"
+                                               aria-describedby="artistError" th:field="*{artist}">
+                                        <div id="artistError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="typeOfMusic" class="form-label">Type of music: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="typeOfMusic"
+                                               aria-describedby="typeOfMusicError" th:field="*{typeOfMusic}">
+                                        <div id="typeOfMusicError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('typeOfMusic')}" th:errors="*{typeOfMusic}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

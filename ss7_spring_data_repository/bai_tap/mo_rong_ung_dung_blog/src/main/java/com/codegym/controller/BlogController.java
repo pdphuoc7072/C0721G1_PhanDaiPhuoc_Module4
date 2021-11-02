@@ -46,17 +46,15 @@ public class BlogController {
     }
 
     @GetMapping("")
-    public ModelAndView listBlog (@RequestParam ("search") Optional<String> search,
-                                  @PageableDefault (size = 5) Pageable pageable) {
-        Page<Blog> blogs;
-        if (search.isPresent()) {
-            blogs = blogService.findAllByTitleContaining(search.get(), pageable);
-        } else {
-            blogs = blogService.findAll(pageable);
-        }
+    public ModelAndView listBlog (@RequestParam (value = "search", defaultValue = "", required = false) String search,
+                                  @RequestParam (value = "idCategory", defaultValue = "", required = false) String idCategory,
+                                  @PageableDefault (size = 1) Pageable pageable) {
+        Page<Blog> blogs = blogService.findAll(pageable, search, idCategory);
         ModelAndView modelAndView = new ModelAndView("/blog/list");
         modelAndView.addObject("blogs", blogs);
         modelAndView.addObject("categories", categoryService.findAll());
+        modelAndView.addObject("search", search);
+        modelAndView.addObject("idCategory", idCategory);
         return modelAndView;
     }
 
