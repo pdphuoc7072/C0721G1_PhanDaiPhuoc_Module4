@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu a::after {
+            position: absolute;
+            right: 6px;
+            top: .8em;
+        }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-left: .1rem;
+            margin-right: .1rem;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container-fluid" th:fragment="navbar">
+    <div class="row">
+        <div class="col-6">
+            <header class="jumbo jumbo-fluid">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="/logo-furama-resort-danang.png" alt="" width="100" height="70"
+                             class="d-inline-block align-text-top">
+                        <h3 class="navbar-text">Furama Resort</h3>
+                    </a>
+                </div>
+            </header>
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+            <div>
+                <h5 class="navbar-text" style="float: right"><a href="#">Login</a></h5>
+            </div>
+        </div>
+
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-success sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="employeeDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Employee
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="employeeDropdown">
+                        <li><a class="dropdown-item" href="#">Create new employee</a></li>
+                        <li><a class="dropdown-item" href="#">Go to list employees</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="customerDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Customer
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="customerDropdown">
+                        <li><a class="dropdown-item" href="#">Create new customer</a></li>
+                        <li><a class="dropdown-item" href="#">Go to list customers</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="serviceDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Service
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
+                        <li><a class="dropdown-item" href="#">Create new service</a></li>
+                        <li><a class="dropdown-item" href="#">Go to list services</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="contractDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Contract
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="contractDropdown">
+                        <li><a class="dropdown-item" href="#">Create new contract</a></li>
+                        <li><a class="dropdown-item" href="#">Go to list contracts</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Other
+                    </a>
+                    <ul class="dropdown-menu dropright" aria-labelledby="navbarDropdownMenuLink">
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Position</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/position/create}">Create new position</a></li>
+                                <li><a class="dropdown-item" th:href="@{/position}">List position</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Division</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/division/create}">Create new division</a></li>
+                                <li><a class="dropdown-item" th:href="@{/division}">List division</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Education degree</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/education-degree/create}">Create new education degree</a></li>
+                                <li><a class="dropdown-item" th:href="@{/education-degree}">List education degree</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">User</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/user/create}">Create new user</a></li>
+                                <li><a class="dropdown-item" th:href="@{/user}">List user</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Role</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Create new role</a></li>
+                                <li><a class="dropdown-item" href="#">List role</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Customer type</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/customer-type/create}">Create new customer type</a></li>
+                                <li><a class="dropdown-item" th:href="@{/customer-type}">List customer type</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Service type</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/service-type/create}">Create new service type</a></li>
+                                <li><a class="dropdown-item" th:href="@{/service-type}">List service type</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Rent type</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/rent-type/create}">Create new rent type</a></li>
+                                <li><a class="dropdown-item" th:href="@{/rent-type}">List rent type</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>
+<ul class="nav nav-pills flex-column" th:fragment="left-sidebar">
+    <li class="nav-item">
+        <a class="nav-link" href="#">Item 1</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Item 2</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Item 3</a>
+    </li>
+</ul>
+
+<div class="container" th:fragment="footer">
+    <footer class="py-3 bg-light">
+        <div class="container">
+            <p class="text-center">Copyright &copy; Furama</p>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script>
+        $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
+            if (!$(this).next().hasClass('show')) {
+                $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
+            }
+            var $subMenu = $(this).next('.dropdown-menu');
+            $subMenu.toggleClass('show');
+
+
+            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+                $('.dropdown-submenu .show').removeClass('show');
+            });
+
+
+            return false;
+        });
+    </script>
+</div>
+</body>
+</html>

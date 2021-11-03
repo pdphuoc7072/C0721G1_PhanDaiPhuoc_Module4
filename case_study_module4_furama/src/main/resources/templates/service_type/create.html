@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-12">
+                        <h3>Create new service type</h3>
+                    </div>
+                </div>
+                <div class="row m-4 d-flex">
+                    <div class="col-5">
+                        <a th:href="@{/service-type}" class="btn btn-success">
+                            Back to list service type
+                        </a>
+                    </div>
+                </div>
+                <div class="row m-4 d-flex">
+                    <div class="col-6">
+                        <form th:action="@{/service-type/save}" th:object="${serviceType}" method="post">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="serviceTypeName" class="form-label">Service type name: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="serviceTypeName" th:field="*{serviceTypeName}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/common-layout :: footer"></div>
+</body>
+</html>
