@@ -9,6 +9,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
 
+    private String customerCode;
+
     private String customerName;
 
     private String customerBirthday;
@@ -33,7 +35,8 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String customerName, String customerBirthday, Integer customerGender, String customerIdCard, String customerPhone, String customerEmail, String customerAddress) {
+    public Customer(String customerCode, String customerName, String customerBirthday, Integer customerGender, String customerIdCard, String customerPhone, String customerEmail, String customerAddress) {
+        this.customerCode = customerCode;
         this.customerName = customerName;
         this.customerBirthday = customerBirthday;
         this.customerGender = customerGender;
@@ -43,8 +46,9 @@ public class Customer {
         this.customerAddress = customerAddress;
     }
 
-    public Customer(Long customerId, String customerName, String customerBirthday, Integer customerGender, String customerIdCard, String customerPhone, String customerEmail, String customerAddress) {
+    public Customer(Long customerId, String customerCode, String customerName, String customerBirthday, Integer customerGender, String customerIdCard, String customerPhone, String customerEmail, String customerAddress) {
         this.customerId = customerId;
+        this.customerCode = customerCode;
         this.customerName = customerName;
         this.customerBirthday = customerBirthday;
         this.customerGender = customerGender;
@@ -60,6 +64,14 @@ public class Customer {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 
     public String getCustomerName() {

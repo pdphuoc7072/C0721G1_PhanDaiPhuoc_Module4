@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-2">
+                        <a th:href="@{/employee/create}" class="btn btn-success">
+                            Add new employee
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalDeleteMultiple">
+                            Delete Multiple
+                        </button>
+                    </div>
+                </div>
+                <form class="d-flex m-4">
+                    <input class="form-control me-2" type="search" placeholder="Search by employee name" aria-label="Search" name="employeeName">
+                    <input class="form-control me-2" type="search" placeholder="Search by employee phone" aria-label="Search" name="employeePhone">
+                    <select name="positionId">
+                        <option selected value="">Select</option>
+                        <option th:each="position : ${positions}" th:value="${position.positionId}"
+                                th:text="${position.positionName}"></option>
+                    </select>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <div class="container-fluid">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Name</th>
+                            <th>Birthday</th>
+                            <th>Id card</th>
+                            <th>Salary</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Position</th>
+                            <th>Education degree</th>
+                            <th>Division</th>
+                            <th>User</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="employee : ${employees}">
+                            <td th:text="${employee.employeeName}"></td>
+                            <td th:text="${employee.employeeBirthday}"></td>
+                            <td th:text="${employee.employeeIdCard}"></td>
+                            <td th:text="${employee.employeeSalary}"></td>
+                            <td th:text="${employee.employeePhone}"></td>
+                            <td th:text="${employee.employeeEmail}"></td>
+                            <td th:text="${employee.employeeAddress}"></td>
+                            <td th:if="${employee.position}" th:text="${employee.position.positionName}"></td>
+                            <td th:unless="${employee.position}"></td>
+                            <td th:if="${employee.educationDegree}" th:text="${employee.educationDegree.educationDegreeName}"></td>
+                            <td th:unless="${employee.educationDegree}"></td>
+                            <td th:if="${employee.division}" th:text="${employee.division.divisionName}"></td>
+                            <td th:unless="${employee.division}"></td>
+                            <td th:if="${employee.user}" th:text="${employee.user.username}"></td>
+                            <td th:unless="${employee.user}"></td>
+                            <td>
+                                <a th:href="@{/employee/edit/{id} (id=${employee.employeeId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <button th:onclick="|deleteByModal('${employee.employeeId}')|" type="button"
+                                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                                <input type="checkbox" th:value="${employee.employeeId}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <a th:if="${employees.hasPrevious()}" class="btn btn-light"
+               th:href="@{'/employee'(page=${employees.number - 1},employeeName=${employeeName},employeePhone=${employeePhone},positionId=${positionId})}">Previous</a>
+            <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
+            <a th:if="${employees.hasNext()}" class="btn btn-light"
+               th:href="@{'/employee'(page=${employees.number + 1},employeeName=${employeeName},employeePhone=${employeePhone},positionId=${positionId})}">Next</a>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDelete" th:action="@{/employee/delete}" hidden>
+                    <input type="text" name="idEmployee" id="idEmployee">
+                </form>
+                Are you sure delete this employee ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitForm()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete multiple-->
+<div class="modal fade" id="modalDeleteMultiple" tabindex="-1" aria-labelledby="deleteMultipleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMultipleModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDeleteMultiple" th:action="@{/employee/deleteMultiple}" hidden>
+                    <input type="text" name="idEmployeeMultiple" id="idEmployeeMultiple">
+                </form>
+                Are you sure delete ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitFormDeleteMultiple()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/common-layout :: footer"></div>
+
+<script>
+    function deleteByModal(id) {
+        document.getElementById("idEmployee").value = id;
+    }
+
+    function submitForm() {
+        document.getElementById("formDelete").submit();
+    }
+
+    function getIdMultiple() {
+        var array = [];
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            array.push(checkboxes[i].value);
+        }
+        for(let i=0;i<array.length;i++){
+            document.getElementById("idEmployeeMultiple").value += array[i] + ",";
+        }
+    }
+
+    function submitFormDeleteMultiple() {
+        document.getElementById("formDeleteMultiple").submit();
+    }
+</script>
+</body>
+</html>

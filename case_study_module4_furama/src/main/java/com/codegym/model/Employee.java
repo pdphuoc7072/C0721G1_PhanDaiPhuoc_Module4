@@ -35,7 +35,7 @@ public class Employee {
     @JoinColumn(name = "division_id", referencedColumnName = "divisionId")
     private Division division;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
 
