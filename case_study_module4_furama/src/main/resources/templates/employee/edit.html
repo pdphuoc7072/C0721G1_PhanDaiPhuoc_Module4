@@ -20,7 +20,8 @@
                 </div>
                 <div class="row m-4 d-flex">
                     <div class="col-6">
-                        <form th:action="@{/employee/save}" th:object="${employeeDto}" method="post">
+                        <form th:action="@{/employee/update}" th:object="${employeeDto}" method="post">
+                            <input type="hidden" th:field="*{employeeId}">
                             <div class="mb-3">
                                 <div class="row">
                                     <div class="col-3">
@@ -122,9 +123,11 @@
                                     </div>
                                     <div class="col-9">
                                         <select th:field="*{position}" id="position">
-                                            <option selected value="">Select</option>
-                                            <option th:each="position : ${positions}" th:value="${position.positionId}"
-                                                    th:text="${position.positionName}"></option>
+                                            <option th:each="position : ${positions}"
+                                                    th:value="${position.positionId}"
+                                                    th:text="${position.positionName}"
+                                                    th:selected="(${position.positionId} == *{position.positionId})">
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -136,9 +139,11 @@
                                     </div>
                                     <div class="col-9">
                                         <select th:field="*{educationDegree}" id="educationDegree">
-                                            <option selected value="">Select</option>
-                                            <option th:each="educationDegree : ${educationDegrees}" th:value="${educationDegree.educationDegreeId}"
-                                                    th:text="${educationDegree.educationDegreeName}"></option>
+                                            <option th:each="educationDegree : ${educationDegrees}"
+                                                    th:value="${educationDegree.educationDegreeId}"
+                                                    th:text="${educationDegree.educationDegreeName}"
+                                                    th:selected="(${educationDegree.educationDegreeId} == *{educationDegree.educationDegreeId})">
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -150,9 +155,10 @@
                                     </div>
                                     <div class="col-9">
                                         <select th:field="*{division}" id="division">
-                                            <option selected value="">Select</option>
-                                            <option th:each="division : ${divisions}" th:value="${division.divisionId}"
-                                                    th:text="${division.divisionName}"></option>
+                                            <option th:each="division : ${divisions}"
+                                                    th:value="${division.divisionId}"
+                                                    th:text="${division.divisionName}"
+                                                    th:selected="(${division.divisionId} == *{division.divisionId})"></option>
                                         </select>
                                     </div>
                                 </div>

@@ -13,8 +13,8 @@
             <div class="container-fluid">
                 <div class="row m-4 d-flex">
                     <div class="col-2">
-                        <a th:href="@{/employee/create}" class="btn btn-success">
-                            Add new employee
+                        <a th:href="@{/customer/create}" class="btn btn-success">
+                            Add new customer
                         </a>
                     </div>
                     <div class="col-2">
@@ -25,12 +25,12 @@
                     </div>
                 </div>
                 <form class="d-flex m-4">
-                    <input class="form-control me-2" type="search" placeholder="Search by employee name" aria-label="Search" name="employeeName">
-                    <input class="form-control me-2" type="search" placeholder="Search by employee phone" aria-label="Search" name="employeePhone">
-                    <select name="positionId">
-                        <option selected value="">Select position</option>
-                        <option th:each="position : ${positions}" th:value="${position.positionId}"
-                                th:text="${position.positionName}"></option>
+                    <input class="form-control me-2" type="search" placeholder="Search by customer name" aria-label="Search" name="customerName">
+                    <input class="form-control me-2" type="search" placeholder="Search by customer phone" aria-label="Search" name="customerPhone">
+                    <select name="customerTypeId">
+                        <option selected value="">Select customer type</option>
+                        <option th:each="customerType : ${customerTypes}" th:value="${customerType.customerTypeId}"
+                                th:text="${customerType.customerTypeName}"></option>
                     </select>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
@@ -38,47 +38,44 @@
                     <table class="table table-striped table-hover">
                         <thead class="thead-inverse">
                         <tr>
+                            <th>CM code</th>
                             <th>Name</th>
                             <th>Birthday</th>
+                            <th>Gender</th>
                             <th>Id card</th>
-                            <th>Salary</th>
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Position</th>
-                            <th>Education degree</th>
-                            <th>Division</th>
-                            <th>User</th>
+                            <th>CM type</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="employee : ${employees}">
-                            <td th:text="${employee.employeeName}"></td>
-                            <td th:text="${employee.employeeBirthday}"></td>
-                            <td th:text="${employee.employeeIdCard}"></td>
-                            <td th:text="${employee.employeeSalary}"></td>
-                            <td th:text="${employee.employeePhone}"></td>
-                            <td th:text="${employee.employeeEmail}"></td>
-                            <td th:text="${employee.employeeAddress}"></td>
-                            <td th:if="${employee.position}" th:text="${employee.position.positionName}"></td>
-                            <td th:unless="${employee.position}"></td>
-                            <td th:if="${employee.educationDegree}" th:text="${employee.educationDegree.educationDegreeName}"></td>
-                            <td th:unless="${employee.educationDegree}"></td>
-                            <td th:if="${employee.division}" th:text="${employee.division.divisionName}"></td>
-                            <td th:unless="${employee.division}"></td>
-                            <td th:if="${employee.user}" th:text="${employee.user.username}"></td>
-                            <td th:unless="${employee.user}"></td>
+                        <tr th:each="customer : ${customers}">
+                            <td th:text="${customer.customerCode}"></td>
+                            <td th:text="${customer.customerName}"></td>
+                            <td th:text="${customer.customerBirthday}"></td>
+                            <td th:switch="${customer.customerGender}">
+                                <span th:case="0">Nam</span>
+                                <span th:case="1">Nữ</span>
+                                <span th:case="2">Khác</span>
+                            </td>
+                            <td th:text="${customer.customerIdCard}"></td>
+                            <td th:text="${customer.customerPhone}"></td>
+                            <td th:text="${customer.customerEmail}"></td>
+                            <td th:text="${customer.customerAddress}"></td>
+                            <td th:if="${customer.customerType}" th:text="${customer.customerType.customerTypeName}"></td>
+                            <td th:unless="${customer.customerType}"></td>
                             <td>
-                                <a th:href="@{/employee/edit/{id} (id=${employee.employeeId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                <a th:href="@{/customer/edit/{id} (id=${customer.customerId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <button th:onclick="|deleteByModal('${employee.employeeId}')|" type="button"
+                                <button th:onclick="|deleteByModal('${customer.customerId}')|" type="button"
                                         class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                                <input type="checkbox" th:value="${employee.employeeId}">
+                                <input type="checkbox" th:value="${customer.customerId}">
                             </td>
                         </tr>
                         </tbody>
@@ -90,14 +87,14 @@
     <div class="row">
         <div class="col-10"></div>
         <div class="col-2">
-            <a th:if="${employees.hasPrevious()}" class="btn btn-light"
-               th:href="@{'/employee'(page=${employees.number - 1},employeeName=${employeeName},employeePhone=${employeePhone},positionId=${positionId})}">Previous</a>
-            <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
-            <a th:if="${employees.hasNext()}" class="btn btn-light"
-               th:href="@{'/employee'(page=${employees.number + 1},employeeName=${employeeName},employeePhone=${employeePhone},positionId=${positionId})}">Next</a>
+            <a th:if="${customers.hasPrevious()}" class="btn btn-light"
+               th:href="@{'/customer'(page=${customers.number - 1},customerName=${customerName},customerPhone=${customerPhone},customerTypeId=${customerTypeId})}">Previous</a>
+            <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+            <a th:if="${customers.hasNext()}" class="btn btn-light"
+               th:href="@{'/customer'(page=${customers.number + 1},customerName=${customerName},customerPhone=${customerPhone},customerTypeId=${customerTypeId})}">Next</a>
         </div>
     </div>
-    </div>
+</div>
 </div>
 
 <!-- Modal delete-->
@@ -111,10 +108,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="formDelete" th:action="@{/employee/delete}" hidden>
-                    <input type="text" name="idEmployee" id="idEmployee">
+                <form method="post" id="formDelete" th:action="@{/customer/delete}" hidden>
+                    <input type="text" name="idCustomer" id="idCustomer">
                 </form>
-                Are you sure delete this employee ?
+                Are you sure delete this customer ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" th:onclick="submitForm()">Yes</button>
@@ -136,10 +133,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="formDeleteMultiple" th:action="@{/employee/deleteMultiple}" hidden>
-                    <input type="text" name="idEmployeeMultiple" id="idEmployeeMultiple">
+                <form method="post" id="formDeleteMultiple" th:action="@{/customer/deleteMultiple}" hidden>
+                    <input type="text" name="idCustomerMultiple" id="idCustomerMultiple">
                 </form>
-                Are you sure delete this multiple employee ?
+                Are you sure delete this multiple customer ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" th:onclick="submitFormDeleteMultiple()">Yes</button>
@@ -153,7 +150,7 @@
 
 <script>
     function deleteByModal(id) {
-        document.getElementById("idEmployee").value = id;
+        document.getElementById("idCustomer").value = id;
     }
 
     function submitForm() {
@@ -168,7 +165,7 @@
             array.push(checkboxes[i].value);
         }
         for(let i=0;i<array.length;i++){
-            document.getElementById("idEmployeeMultiple").value += array[i] + ",";
+            document.getElementById("idCustomerMultiple").value += array[i] + ",";
         }
     }
 

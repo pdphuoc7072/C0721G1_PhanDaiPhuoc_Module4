@@ -23,7 +23,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public List<Employee> findAll() {
-        return null;
+        return employeeRepository.findAll();
     }
 
     @Override

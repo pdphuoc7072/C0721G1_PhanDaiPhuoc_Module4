@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-10">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-5">
+                        <a th:href="@{/customer}" class="btn btn-success">
+                            Back to list customer
+                        </a>
+                    </div>
+                </div>
+                <div class="row m-4 d-flex">
+                    <div class="col-6">
+                        <form th:action="@{/customer/save}" th:object="${customer}" method="post">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerCode" class="form-label">Customer code: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="customerCode"
+                                               aria-describedby="customerCodeError" th:field="*{customerCode}">
+                                        <div id="customerCodeError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerName" class="form-label">Name: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="customerName"
+                                               aria-describedby="customerNameError" th:field="*{customerName}">
+                                        <div id="customerNameError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerBirthday" class="form-label">Birthday: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="date" class="form-control" id="customerBirthday"
+                                               aria-describedby="customerBirthdayError" th:field="*{customerBirthday}">
+                                        <div id="customerBirthdayError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('customerBirthday')}" th:errors="*{customerBirthday}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label class="form-label">Gender: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="radio" th:field="*{customerGender}" value="0"/>Nam
+                                        <input type="radio" th:field="*{customerGender}" value="1"/>Nữ
+                                        <input type="radio" th:field="*{customerGender}" value="2"/>Khác
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerIdCard" class="form-label">Id card: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="customerIdCard"
+                                               aria-describedby="customerIdCardError" th:field="*{customerIdCard}">
+                                        <div id="customerIdCardError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerPhone" class="form-label">Phone: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="customerPhone"
+                                               aria-describedby="customerPhoneError" th:field="*{customerPhone}">
+                                        <div id="customerPhoneError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerEmail" class="form-label">Email: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="customerEmail"
+                                               aria-describedby="customerEmailError" th:field="*{customerEmail}">
+                                        <div id="customerEmailError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerAddress" class="form-label">Address: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="customerAddress" th:field="*{customerAddress}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customerType" class="form-label">Customer type: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select th:field="*{customerType}" id="customerType">
+                                            <option selected value="">Select</option>
+                                            <option th:each="customerType : ${customerTypes}" th:value="${customerType.customerTypeId}"
+                                                    th:text="${customerType.customerTypeName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/common-layout :: footer"></div>
+</body>
+</html>
