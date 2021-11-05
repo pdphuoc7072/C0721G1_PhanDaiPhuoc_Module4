@@ -163,6 +163,36 @@ public class EmployeeDto implements Validator {
 
     List<Employee> employees = new ArrayList<>();
 
+    private boolean checkIdCard;
+
+    private boolean checkPhone;
+
+    private boolean checkEmail;
+
+    public boolean isCheckEmail() {
+        return checkEmail;
+    }
+
+    public void setCheckEmail(boolean checkEmail) {
+        this.checkEmail = checkEmail;
+    }
+
+    public boolean isCheckPhone() {
+        return checkPhone;
+    }
+
+    public void setCheckPhone(boolean checkPhone) {
+        this.checkPhone = checkPhone;
+    }
+
+    public boolean isCheckIdCard() {
+        return checkIdCard;
+    }
+
+    public void setCheckIdCard(boolean checkIdCard) {
+        this.checkIdCard = checkIdCard;
+    }
+
     @Override
     public boolean supports(Class<?> clazz) {
         return false;
@@ -172,8 +202,20 @@ public class EmployeeDto implements Validator {
     public void validate(Object target, Errors errors) {
         EmployeeDto employeeDto = (EmployeeDto) target;
         for (Employee employee : employees) {
-            if (employeeDto.getEmployeeEmail().equals(employee.getEmployeeEmail())){
-                errors.rejectValue("employeeEmail", "employeeEmail.equals", "Email này đã tồn tại.");
+            if (employeeDto.checkIdCard) {
+                if (employeeDto.getEmployeeIdCard().equals(employee.getEmployeeIdCard())) {
+                    errors.rejectValue("employeeIdCard", "employeeIdCard.equals", "Id card này đã tồn tại.");
+                }
+            }
+            if (employeeDto.checkPhone) {
+                if (employeeDto.getEmployeePhone().equals(employee.getEmployeePhone())){
+                    errors.rejectValue("employeePhone", "employeePhone.equals", "Số ĐT này đã tồn tại.");
+                }
+            }
+            if (employeeDto.checkEmail) {
+                if (employeeDto.getEmployeeEmail().equals(employee.getEmployeeEmail())){
+                    errors.rejectValue("employeeEmail", "employeeEmail.equals", "Email này đã tồn tại.");
+                }
             }
         }
     }

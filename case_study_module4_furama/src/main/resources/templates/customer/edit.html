@@ -20,7 +20,8 @@
                 </div>
                 <div class="row m-4 d-flex">
                     <div class="col-6">
-                        <form th:action="@{/customer/save}" th:object="${customerDto}" method="post">
+                        <form th:action="@{/customer/update}" th:object="${customerDto}" method="post">
+                            <input type="hidden" th:field="*{customerId}">
                             <div class="mb-3">
                                 <div class="row">
                                     <div class="col-3">
@@ -69,9 +70,9 @@
                                         <label class="form-label">Gender: </label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="radio" th:field="*{customerGender}" value="0" required/>Nam
-                                        <input type="radio" th:field="*{customerGender}" value="1" required/>Nữ
-                                        <input type="radio" th:field="*{customerGender}" value="2" required/>Khác
+                                        <input type="radio" th:field="*{customerGender}" value="0" th:checked="${customerDto.customerGender}"/>Nam
+                                        <input type="radio" th:field="*{customerGender}" value="1" th:checked="${customerDto.customerGender}"/>Nữ
+                                        <input type="radio" th:field="*{customerGender}" value="2" th:checked="${customerDto.customerGender}"/>Khác
 
                                     </div>
                                 </div>
@@ -137,7 +138,8 @@
                                         <select th:field="*{customerType}" id="customerType" required>
                                             <option selected value="">Select</option>
                                             <option th:each="customerType : ${customerTypes}" th:value="${customerType.customerTypeId}"
-                                                    th:text="${customerType.customerTypeName}"></option>
+                                                    th:text="${customerType.customerTypeName}"
+                                                    th:selected="${customerType.customerTypeId == customerType.customerTypeId}"></option>
                                         </select>
                                     </div>
                                 </div>

@@ -1,11 +1,16 @@
 package com.codegym.dto;
 
+import com.codegym.model.Customer;
 import com.codegym.model.CustomerType;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CustomerDto {
+public class CustomerDto implements Validator {
     private Long customerId;
 
 
@@ -125,5 +130,84 @@ public class CustomerDto {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    List<Customer> customers = new ArrayList<>();
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+    private boolean checkCode;
+    private boolean checkIdCard;
+    private boolean checkPhone;
+    private boolean checkEmail;
+
+    public boolean isCheckCode() {
+        return checkCode;
+    }
+
+    public void setCheckCode(boolean checkCode) {
+        this.checkCode = checkCode;
+    }
+
+    public boolean isCheckIdCard() {
+        return checkIdCard;
+    }
+
+    public void setCheckIdCard(boolean checkIdCard) {
+        this.checkIdCard = checkIdCard;
+    }
+
+    public boolean isCheckPhone() {
+        return checkPhone;
+    }
+
+    public void setCheckPhone(boolean checkPhone) {
+        this.checkPhone = checkPhone;
+    }
+
+    public boolean isCheckEmail() {
+        return checkEmail;
+    }
+
+    public void setCheckEmail(boolean checkEmail) {
+        this.checkEmail = checkEmail;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+        for (Customer customer : customers) {
+            if (customerDto.checkCode) {
+                if (customer.getCustomerCode().equals(customerDto.getCustomerCode())) {
+                    errors.rejectValue("customerCode", "customerCode.equals", "Mã KH đã tồn tại.");
+                }
+            }
+            if (customerDto.checkIdCard) {
+                if (customerDto.getCustomerIdCard().equals(customer.getCustomerIdCard())) {
+                    errors.rejectValue("customerIdCard", "customerIdCard.equals", "Id card này đã tồn tại.");
+                }
+            }
+            if (customerDto.checkPhone) {
+                if (customerDto.getCustomerPhone().equals(customer.getCustomerPhone())){
+                    errors.rejectValue("customerPhone", "customerPhone.equals", "Số ĐT này đã tồn tại.");
+                }
+            }
+            if (customerDto.checkEmail) {
+                if (customerDto.getCustomerEmail().equals(customer.getCustomerEmail())){
+                    errors.rejectValue("customerEmail", "customerEmail.equals", "Email này đã tồn tại.");
+                }
+            }
+        }
     }
 }

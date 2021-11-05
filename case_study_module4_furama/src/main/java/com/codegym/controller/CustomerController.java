@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/customer")
@@ -40,10 +41,16 @@ public class CustomerController {
 
     @PostMapping("/save")
     public String save (@Valid @ModelAttribute("customerDto") CustomerDto customerDto, BindingResult bindingResult) {
-
-//        EmployeeDto employeeDtoTemp = new EmployeeDto();
-//        employeeDtoTemp.setEmployees(employeeService.findAll());
-//        employeeDtoTemp.validate(employeeDto, bindingResult);
+        boolean checkCode = true;
+        boolean checkIdCard = true;
+        boolean checkPhone = true;
+        boolean checkEmail = true;
+        customerDto.setCustomers(customerService.findAll());
+        customerDto.setCheckCode(checkCode);
+        customerDto.setCheckIdCard(checkIdCard);
+        customerDto.setCheckPhone(checkPhone);
+        customerDto.setCheckEmail(checkEmail);
+        customerDto.validate(customerDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return "customer/create";
         } else {
@@ -66,6 +73,83 @@ public class CustomerController {
         modelAndView.addObject("customerPhone", customerPhone);
         modelAndView.addObject("customerTypeId", customerTypeId);
         return modelAndView;
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView showEditForm(@PathVariable Long id) {
+        Optional<Customer> customer = customerService.findById(id);
+        CustomerDto customerDto = new CustomerDto();
+        BeanUtils.copyProperties(customer.get(), customerDto);
+        ModelAndView modelAndView;
+        if (customerDto != null) {
+            modelAndView = new ModelAndView("/customer/edit");
+            modelAndView.addObject("customerDto", customerDto);
+        } else {
+            modelAndView = new ModelAndView("/error.404");
+        }
+        return modelAndView;
+    }
+
+    @PostMapping("/update")
+    public String update (@Valid @ModelAttribute("customerDto") CustomerDto customerDto, BindingResult bindingResult) {
+        Optional<Customer> customerOptional = customerService.findById(customerDto.getCustomerId());
+        String oldCode = customerOptional.get().getCustomerCode();
+        String oldIdCard = customerOptional.get().getCustomerIdCard();
+        String oldPhone = customerOptional.get().getCustomerPhone();
+        String oldEmail = customerOptional.get().getCustomerEmail();
+        boolean checkCode = false;
+        boolean checkIdCard = false;
+        boolean checkPhone = false;
+        boolean checkEmail = false;
+        if (!oldCode.equals(customerDto.getCustomerCode())) {
+            checkCode = true;
+            customerDto.setCustomers(customerService.findAll());
+            customerDto.setCheckCode(checkCode);
+            customerDto.setCheckIdCard(checkIdCard);
+            customerDto.setCheckPhone(checkPhone);
+            customerDto.setCheckEmail(checkEmail);
+            customerDto.validate(customerDto, bindingResult);
+            checkCode = false;
+        }
+        if (!oldIdCard.equals(customerDto.getCustomerIdCard())) {
+            checkIdCard = true;
+            customerDto.setCustomers(customerService.findAll());
+            customerDto.setCheckCode(checkCode);
+            customerDto.setCheckIdCard(checkIdCard);
+            customerDto.setCheckPhone(checkPhone);
+            customerDto.setCheckEmail(checkEmail);
+            customerDto.validate(customerDto, bindingResult);
+            checkIdCard = false;
+        }
+        if (!oldPhone.equals(customerDto.getCustomerPhone())) {
+            checkPhone = true;
+            customerDto.setCustomers(customerService.findAll());
+            customerDto.setCheckCode(checkCode);
+            customerDto.setCheckIdCard(checkIdCard);
+            customerDto.setCheckPhone(checkPhone);
+            customerDto.setCheckEmail(checkEmail);
+            customerDto.validate(customerDto, bindingResult);
+            checkPhone = false;
+        }
+        if (!oldEmail.equals(customerDto.getCustomerEmail())) {
+            checkEmail = true;
+            customerDto.setCustomers(customerService.findAll());
+            customerDto.setCheckCode(checkCode);
+            customerDto.setCheckIdCard(checkIdCard);
+            customerDto.setCheckPhone(checkPhone);
+            customerDto.setCheckEmail(checkEmail);
+            customerDto.validate(customerDto, bindingResult);
+            checkEmail = false;
+        }
+
+        if (bindingResult.hasFieldErrors()) {
+            return "customer/edit";
+        } else {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto, customer);
+            customerService.save(customer);
+            return "redirect:/customer";
+        }
     }
 
     @PostMapping("/delete")

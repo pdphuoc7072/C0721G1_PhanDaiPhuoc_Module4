@@ -63,9 +63,14 @@ public class EmployeeController {
     @PostMapping("/save")
     public String save (@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
         employeeDto.getUser().setPassword("123456");
-        EmployeeDto employeeDtoTemp = new EmployeeDto();
-        employeeDtoTemp.setEmployees(employeeService.findAll());
-        employeeDtoTemp.validate(employeeDto, bindingResult);
+        boolean checkIdCard = true;
+        boolean checkPhone = true;
+        boolean checkEmail = true;
+        employeeDto.setEmployees(employeeService.findAll());
+        employeeDto.setCheckIdCard(checkIdCard);
+        employeeDto.setCheckPhone(checkPhone);
+        employeeDto.setCheckEmail(checkEmail);
+        employeeDto.validate(employeeDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return "employee/create";
         } else {
@@ -109,11 +114,39 @@ public class EmployeeController {
     public String update (@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
         List<Employee> employees = employeeService.findAll();
         Optional<Employee> employeeOptional = employeeService.findById(employeeDto.getEmployeeId());
+        String oldIdCard = employeeOptional.get().getEmployeeIdCard();
+        String oldPhone = employeeOptional.get().getEmployeePhone();
         String oldEmail = employeeOptional.get().getEmployeeEmail();
+        boolean checkIdCard = false;
+        boolean checkPhone = false;
+        boolean checkEmail = false;
+
+        if (!oldPhone.equals(employeeDto.getEmployeePhone())) {
+            checkPhone = true;
+            employeeDto.setEmployees(employees);
+            employeeDto.setCheckIdCard(checkIdCard);
+            employeeDto.setCheckEmail(checkEmail);
+            employeeDto.setCheckPhone(checkPhone);
+            employeeDto.validate(employeeDto, bindingResult);
+            checkPhone = false;
+        }
         if (!oldEmail.equals(employeeDto.getEmployeeEmail())) {
-            EmployeeDto employeeDtoTemp = new EmployeeDto();
-            employeeDtoTemp.setEmployees(employees);
-            employeeDtoTemp.validate(employeeDto, bindingResult);
+            checkEmail = true;
+            employeeDto.setEmployees(employees);
+            employeeDto.setCheckIdCard(checkIdCard);
+            employeeDto.setCheckEmail(checkEmail);
+            employeeDto.setCheckPhone(checkPhone);
+            employeeDto.validate(employeeDto, bindingResult);
+            checkEmail = false;
+        }
+        if (!oldIdCard.equals(employeeDto.getEmployeeIdCard())) {
+            checkIdCard = true;
+            employeeDto.setEmployees(employees);
+            employeeDto.setCheckIdCard(checkIdCard);
+            employeeDto.setCheckEmail(checkEmail);
+            employeeDto.setCheckPhone(checkPhone);
+            employeeDto.validate(employeeDto, bindingResult);
+            checkIdCard = false;
         }
 
         if (bindingResult.hasFieldErrors()) {
