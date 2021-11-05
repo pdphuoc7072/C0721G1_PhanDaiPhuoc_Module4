@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.dto.CustomerDto;
 import com.codegym.model.Customer;
 import com.codegym.model.CustomerType;
 import com.codegym.service.ICustomerService;
@@ -33,27 +34,24 @@ public class CustomerController {
     @GetMapping("/create")
     public ModelAndView showCreateForm () {
         ModelAndView modelAndView = new ModelAndView("customer/create");
-//        modelAndView.addObject("employeeDto", new EmployeeDto());
-        modelAndView.addObject("customer", new Customer());
+        modelAndView.addObject("customerDto", new CustomerDto());
         return modelAndView;
     }
 
     @PostMapping("/save")
-    public String save (@ModelAttribute("customer") Customer customer) {
-//        employeeDto.getUser().setPassword("123456");
+    public String save (@Valid @ModelAttribute("customerDto") CustomerDto customerDto, BindingResult bindingResult) {
+
 //        EmployeeDto employeeDtoTemp = new EmployeeDto();
 //        employeeDtoTemp.setEmployees(employeeService.findAll());
 //        employeeDtoTemp.validate(employeeDto, bindingResult);
-//        if (bindingResult.hasFieldErrors()) {
-//            return "employee/create";
-//        } else {
-//            Employee employee = new Employee();
-//            BeanUtils.copyProperties(employeeDto, employee);
-//            employeeService.save(employee);
-//            return "redirect:/employee";
-//        }
-        customerService.save(customer);
-        return "redirect:/customer";
+        if (bindingResult.hasFieldErrors()) {
+            return "customer/create";
+        } else {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto, customer);
+            customerService.save(customer);
+            return "redirect:/customer";
+        }
     }
 
     @GetMapping("")
@@ -68,5 +66,20 @@ public class CustomerController {
         modelAndView.addObject("customerPhone", customerPhone);
         modelAndView.addObject("customerTypeId", customerTypeId);
         return modelAndView;
+    }
+
+    @PostMapping("/delete")
+    public String delete (@RequestParam Long idCustomer) {
+        customerService.remove(idCustomer);
+        return "redirect:/customer";
+    }
+
+    @PostMapping("/deleteMultiple")
+    public String deleteMultiple (@RequestParam String idCustomerMultiple) {
+        String[] idCustomerMultipleArray = idCustomerMultiple.split(",");
+        for (int i = 0; i < idCustomerMultipleArray.length; i++) {
+            customerService.remove(Long.valueOf(idCustomerMultipleArray[i]));
+        }
+        return "redirect:/customer";
     }
 }

@@ -27,7 +27,7 @@ public class EmployeeDto implements Validator {
 
     @NotBlank(message = "Số CMND không được để trống.")
     @Pattern(regexp = "^([0-9]{9})|([0-9]{12})$",
-            message = "Số CMND phải đúng định dạng: XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
+            message = "Số CMND phải đúng định dạng: XXXXXXXXX hoặc XXXXXXXXXXXX.")
     private String employeeIdCard;
 
     @NotNull(message = "Lương không được để trống.")

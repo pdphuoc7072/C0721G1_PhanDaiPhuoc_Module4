@@ -121,7 +121,7 @@
                                         <label for="position" class="form-label">Position: </label>
                                     </div>
                                     <div class="col-9">
-                                        <select th:field="*{position}" id="position">
+                                        <select th:field="*{position}" id="position" required>
                                             <option selected value="">Select</option>
                                             <option th:each="position : ${positions}" th:value="${position.positionId}"
                                                     th:text="${position.positionName}"></option>
@@ -135,7 +135,7 @@
                                         <label for="educationDegree" class="form-label">Education degree: </label>
                                     </div>
                                     <div class="col-9">
-                                        <select th:field="*{educationDegree}" id="educationDegree">
+                                        <select th:field="*{educationDegree}" id="educationDegree" required>
                                             <option selected value="">Select</option>
                                             <option th:each="educationDegree : ${educationDegrees}" th:value="${educationDegree.educationDegreeId}"
                                                     th:text="${educationDegree.educationDegreeName}"></option>
@@ -149,7 +149,7 @@
                                         <label for="division" class="form-label">Division: </label>
                                     </div>
                                     <div class="col-9">
-                                        <select th:field="*{division}" id="division">
+                                        <select th:field="*{division}" id="division" required>
                                             <option selected value="">Select</option>
                                             <option th:each="division : ${divisions}" th:value="${division.divisionId}"
                                                     th:text="${division.divisionName}"></option>
@@ -163,7 +163,7 @@
                                         <label for="user" class="form-label">User: </label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" id="user" th:field="*{user.username}">
+                                        <input type="text" class="form-control" id="user" th:field="*{user.username}" required>
                                     </div>
                                 </div>
                             </div>

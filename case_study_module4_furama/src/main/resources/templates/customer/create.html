@@ -20,7 +20,7 @@
                 </div>
                 <div class="row m-4 d-flex">
                     <div class="col-6">
-                        <form th:action="@{/customer/save}" th:object="${customer}" method="post">
+                        <form th:action="@{/customer/save}" th:object="${customerDto}" method="post">
                             <div class="mb-3">
                                 <div class="row">
                                     <div class="col-3">
@@ -69,9 +69,9 @@
                                         <label class="form-label">Gender: </label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="radio" th:field="*{customerGender}" value="0"/>Nam
-                                        <input type="radio" th:field="*{customerGender}" value="1"/>Nữ
-                                        <input type="radio" th:field="*{customerGender}" value="2"/>Khác
+                                        <input type="radio" th:field="*{customerGender}" value="0" required/>Nam
+                                        <input type="radio" th:field="*{customerGender}" value="1" required/>Nữ
+                                        <input type="radio" th:field="*{customerGender}" value="2" required/>Khác
 
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                                         <label for="customerType" class="form-label">Customer type: </label>
                                     </div>
                                     <div class="col-9">
-                                        <select th:field="*{customerType}" id="customerType">
+                                        <select th:field="*{customerType}" id="customerType" required>
                                             <option selected value="">Select</option>
                                             <option th:each="customerType : ${customerTypes}" th:value="${customerType.customerTypeId}"
                                                     th:text="${customerType.customerTypeName}"></option>
