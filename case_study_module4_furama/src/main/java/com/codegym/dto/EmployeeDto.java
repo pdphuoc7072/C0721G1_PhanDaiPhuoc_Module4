@@ -1,13 +1,13 @@
 package com.codegym.dto;
 
 import com.codegym.model.*;
-import com.codegym.service.IEmployeeService;
-import com.codegym.service.impl.EmployeeServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class EmployeeDto implements Validator {
     private String employeeIdCard;
 
     @NotNull(message = "Lương không được để trống.")
-    @Min(value = 0, message = "Lương phải là số dương.")
+    @Min(value = 1, message = "Lương phải là số dương.")
     private Double employeeSalary;
 
     @NotBlank(message = "Số điện thoại không được để trống.")

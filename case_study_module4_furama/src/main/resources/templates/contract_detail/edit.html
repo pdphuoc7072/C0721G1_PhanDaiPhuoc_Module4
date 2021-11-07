@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-11">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-5">
+                        <a th:href="@{/contract-detail}" class="btn btn-success">
+                            Back to list contract detail
+                        </a>
+                    </div>
+                </div>
+                <div class="row m-4 d-flex">
+                    <div class="col-6">
+                        <form th:action="@{/contract-detail/update}" th:object="${contractDetailDto}" method="post">
+                            <input type="hidden" th:field="*{contractDetailId}">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="contract" class="form-label">Contract: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select th:field="*{contract}" id="contract" required>
+                                            <option selected value="">Select</option>
+                                            <option th:each="contract : ${contracts}" th:value="${contract.contractId}"
+                                                    th:text="${contract.contractId}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="attachService" class="form-label">Attach service: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select th:field="*{attachService}" id="attachService" required>
+                                            <option selected value="">Select</option>
+                                            <option th:each="attachService : ${attachServices}" th:value="${attachService.attachServiceId}"
+                                                    th:text="${attachService.attachServiceName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="quantity" class="form-label">Quantity: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="quantity"
+                                               aria-describedby="quantityError" th:field="*{quantity}">
+                                        <div id="quantityError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/common-layout :: footer"></div>
+</body>
+</html>

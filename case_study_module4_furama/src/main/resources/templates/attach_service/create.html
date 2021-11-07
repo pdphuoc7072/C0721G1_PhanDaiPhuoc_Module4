@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-11">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-5">
+                        <a th:href="@{/attach-service}" class="btn btn-success">
+                            Back to list attach service
+                        </a>
+                    </div>
+                </div>
+                <div class="row m-4 d-flex">
+                    <div class="col-6">
+                        <form th:action="@{/attach-service/save}" th:object="${attachServiceDto}" method="post">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="attachServiceName" class="form-label">Name: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="attachServiceName" th:field="*{attachServiceName}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="attachServiceCost" class="form-label">Cost: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="attachServiceCost"
+                                               aria-describedby="attachServiceCostError" th:field="*{attachServiceCost}">
+                                        <div id="attachServiceCostError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('attachServiceCost')}" th:errors="*{attachServiceCost}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="attachServiceUnit" class="form-label">Unit: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="attachServiceUnit"
+                                               aria-describedby="attachServiceUnitError" th:field="*{attachServiceUnit}">
+                                        <div id="attachServiceUnitError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('attachServiceUnit')}" th:errors="*{attachServiceUnit}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="attachServiceStatus" class="form-label">Status: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="attachServiceStatus" th:field="*{attachServiceStatus}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/common-layout :: footer"></div>
+</body>
+</html>

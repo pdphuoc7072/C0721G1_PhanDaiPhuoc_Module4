@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-11">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-5">
+                        <a th:href="@{/contract}" class="btn btn-success">
+                            Back to list contract
+                        </a>
+                    </div>
+                </div>
+                <div class="row m-4 d-flex">
+                    <div class="col-6">
+                        <form th:action="@{/contract/save}" th:object="${contractDto}" method="post">
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="contractStartDate" class="form-label">Start date: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="date" class="form-control" id="contractStartDate"
+                                               aria-describedby="contractStartDateError" th:field="*{contractStartDate}">
+                                        <div id="contractStartDateError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('contractStartDate')}" th:errors="*{contractStartDate}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="contractEndDate" class="form-label">End date: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="date" class="form-control" id="contractEndDate"
+                                               aria-describedby="contractEndDateError" th:field="*{contractEndDate}">
+                                        <div id="contractEndDateError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('contractEndDate')}" th:errors="*{contractEndDate}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="employee" class="form-label">Employee: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select th:field="*{employee}" id="employee" required>
+                                            <option selected value="">Select</option>
+                                            <option th:each="employee : ${employees}" th:value="${employee.employeeId}"
+                                                    th:text="${employee.employeeName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="customer" class="form-label">Customer: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select th:field="*{customer}" id="customer" required>
+                                            <option selected value="">Select</option>
+                                            <option th:each="customer : ${customers}" th:value="${customer.customerId}"
+                                                    th:text="${customer.customerName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="service" class="form-label">Service: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select th:field="*{service}" id="service" required>
+                                            <option selected value="">Select</option>
+                                            <option th:each="service : ${services}" th:value="${service.serviceId}"
+                                                    th:text="${service.serviceName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="contractDeposit" class="form-label">Deposit: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="contractDeposit"
+                                               aria-describedby="contractDepositError" th:field="*{contractDeposit}">
+                                        <div id="contractDepositError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('contractDeposit')}" th:errors="*{contractDeposit}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="contractTotalMoney" class="form-label">Total money: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="contractTotalMoney"
+                                               aria-describedby="contractTotalMoneyError" th:field="*{contractTotalMoney}">
+                                        <div id="contractTotalMoneyError" class="form-text text-danger"
+                                             th:if="${#fields.hasErrors('contractTotalMoney')}" th:errors="*{contractTotalMoney}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/common-layout :: footer"></div>
+</body>
+</html>

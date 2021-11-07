@@ -92,8 +92,11 @@
                         Service
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="serviceDropdown">
-                        <li><a class="dropdown-item" href="#">Create new service</a></li>
-                        <li><a class="dropdown-item" href="#">Go to list services</a></li>
+                        <li><a class="dropdown-item" th:href="@{/service/create}">Create new service</a></li>
+                        <li><a class="dropdown-item" th:href="@{/service}">Go to list services</a></li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item" th:href="@{/attach-service/create}">Create new attach service</a></li>
+                        <li><a class="dropdown-item" th:href="@{/attach-service}">Go to list attach service</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -102,8 +105,11 @@
                         Contract
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="contractDropdown">
-                        <li><a class="dropdown-item" href="#">Create new contract</a></li>
-                        <li><a class="dropdown-item" href="#">Go to list contracts</a></li>
+                        <li><a class="dropdown-item" th:href="@{/contract/create}">Create new contract</a></li>
+                        <li><a class="dropdown-item" th:href="@{/contract}">Go to list contracts</a></li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item" th:href="@{/contract-detail/create}">Create new contract-detail</a></li>
+                        <li><a class="dropdown-item" th:href="@{/contract-detail}">Go to list contract-detail</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

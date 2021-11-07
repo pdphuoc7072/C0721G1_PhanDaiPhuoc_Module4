@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-11">
+            <div class="container-fluid">
+                <div class="row m-4 d-flex">
+                    <div class="col-2">
+                        <a th:href="@{/contract-detail/create}" class="btn btn-success">
+                            Add new contract detail
+                        </a>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Contract id</th>
+                            <th>Attach service id</th>
+                            <th>Quantity</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="contractDetail : ${contractDetails}">
+                            <td th:if="${contractDetail.contract}" th:text="${contractDetail.contract.contractId}"></td>
+                            <td th:unless="${contractDetail.contract}"></td>
+                            <td th:if="${contractDetail.attachService}" th:text="${contractDetail.attachService.attachServiceId}"></td>
+                            <td th:unless="${contractDetail.attachService}"></td>
+                            <td th:text="${contractDetail.quantity}"></td>
+                            <td>
+                                <a th:href="@{/contract-detail/edit/{id} (id=${contractDetail.contractDetailId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <button th:onclick="|deleteByModal('${contractDetail.contractDetailId}')|" type="button"
+                                        class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDelete" th:action="@{/contract-detail/delete}" hidden>
+                    <input type="text" name="idContractDetail" id="idContractDetail">
+                </form>
+                Are you sure delete this contract detail ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitForm()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/common-layout :: footer"></div>
+
+<script>
+    function deleteByModal(id) {
+        document.getElementById("idContractDetail").value = id;
+    }
+
+    function submitForm() {
+        document.getElementById("formDelete").submit();
+    }
+</script>
+</body>
+</html>
