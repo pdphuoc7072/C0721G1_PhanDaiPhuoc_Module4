@@ -61,8 +61,16 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <a th:if="${contracts.hasPrevious()}" class="btn btn-light" th:href="@{'/contract'(page=${contracts.number - 1})}">Previous</a>
+            <span th:text="${contracts.number + 1}"></span>/<span th:text="${contracts.totalPages}"></span>
+            <a th:if="${contracts.hasNext()}" class="btn btn-light" th:href="@{'/contract'(page=${contracts.number + 1})}">Next</a>
+        </div>
+    </div>
 </div>
-</div>
+
 
 <!-- Modal delete-->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

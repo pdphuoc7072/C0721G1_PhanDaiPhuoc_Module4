@@ -9,6 +9,8 @@ import com.codegym.service.IContractDetailService;
 import com.codegym.service.IContractService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +42,9 @@ public class ContractDetailController {
     }
 
     @GetMapping("")
-    private ModelAndView list () {
+    private ModelAndView list (@PageableDefault(value = 5) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("contract_detail/list");
-        modelAndView.addObject("contractDetails", contractDetailService.findAll());
+        modelAndView.addObject("contractDetails", contractDetailService.findAll(pageable));
         return modelAndView;
     }
 

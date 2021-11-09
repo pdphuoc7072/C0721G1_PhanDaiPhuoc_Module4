@@ -1,5 +1,6 @@
 package com.codegym.service.impl;
 
+import com.codegym.dto.ServiceDetail;
 import com.codegym.model.Service;
 import com.codegym.repository.IServiceRepository;
 import com.codegym.service.IServiceService;
@@ -31,5 +32,16 @@ public class ServiceServiceImpl implements IServiceService {
     @Override
     public void remove(Long id) {
         serviceRepository.deleteById(id);
+    }
+
+
+    @Override
+    public List<ServiceDetail> listServiceDetail() {
+        return serviceRepository.listServiceDetail();
+    }
+
+    @Override
+    public List<ServiceDetail> listServiceDetailById(Integer id) {
+        return serviceRepository.listServiceDetailById(id);
     }
 }

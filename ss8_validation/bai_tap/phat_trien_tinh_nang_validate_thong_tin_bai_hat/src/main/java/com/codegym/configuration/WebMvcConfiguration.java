@@ -12,7 +12,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.addBasenames("classpath:validation_messages");
+        messageSource.setBasename("classpath:validation_messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

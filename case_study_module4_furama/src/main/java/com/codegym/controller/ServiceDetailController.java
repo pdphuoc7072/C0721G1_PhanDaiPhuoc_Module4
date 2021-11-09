@@ -1,0 +1,35 @@
+package com.codegym.controller;
+
+import com.codegym.dto.ServiceDetail;
+import com.codegym.service.IServiceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/service-detail")
+public class ServiceDetailController {
+    @Autowired
+    private IServiceService serviceService;
+
+    @GetMapping("")
+    private ModelAndView list () {
+        List<ServiceDetail> serviceDetailList = serviceService.listServiceDetail();
+        ModelAndView modelAndView = new ModelAndView("service_detail/list");
+        modelAndView.addObject("serviceDetailList", serviceDetailList);
+        return modelAndView;
+    }
+
+    @GetMapping("/detail/{contractId}")
+    public ModelAndView listById (@PathVariable Integer contractId) {
+        List<ServiceDetail> serviceDetailByIdList = serviceService.listServiceDetailById(contractId);
+        ModelAndView modelAndView = new ModelAndView("service_detail/detail");
+        modelAndView.addObject("serviceDetailByIdList", serviceDetailByIdList);
+        return modelAndView;
+    }
+}

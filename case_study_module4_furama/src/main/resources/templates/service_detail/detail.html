@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-11">
+            <div class="container-fluid">
+                <div class="container-fluid">
+                    <div class="row m-4 d-flex">
+                        <div class="col-5">
+                            <a th:href="@{/service-detail}" class="btn btn-success">
+                                Back to list service detail
+                            </a>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Contract id</th>
+                            <th>Contract detail id</th>
+                            <th>Attach service name</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="s : ${serviceDetailByIdList}">
+                            <td th:text="${s.serviceId}"></td>
+                            <td th:text="${s.contractDetailId}"></td>
+                            <td th:text="${s.attachServiceName}"></td>
+                            <td th:text="${s.quantity}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/common-layout :: footer"></div>
+</body>
+</html>

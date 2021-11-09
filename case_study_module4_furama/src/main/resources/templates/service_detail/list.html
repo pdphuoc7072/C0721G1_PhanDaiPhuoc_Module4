@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common-layout :: head">
+</head>
+<body>
+<div th:replace="/common-layout :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <ul th:replace="/common-layout :: left-sidebar"></ul>
+        </div>
+        <div class="col-11">
+            <div class="container-fluid">
+                <div class="container-fluid">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Service id</th>
+                            <th>Service name</th>
+                            <th>Customer name</th>
+                            <th>Contract id</th>
+                            <th>Contract start date</th>
+                            <th>Contract end date</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="sd : ${serviceDetailList}">
+                            <td th:text="${sd.getServiceId()}"></td>
+                            <td th:text="${sd.getServiceName()}"></td>
+                            <td th:text="${sd.getCustomerName()}"></td>
+                            <td th:text="${sd.getContractId()}"></td>
+                            <td th:text="${sd.getContractStartDate()}"></td>
+                            <td th:text="${sd.getContractEndDate()}"></td>
+                            <td th:text="${sd.getTotal()}"></td>
+                            <td>
+                                <a th:if="${sd.getContractDetailId()}" th:href="@{/service-detail/detail/{contractId} (contractId=${sd.getContractId()})}"
+                                   class="btn btn-primary"><i class="fas fa-info-circle"></i></i>
+                                </a>
+                                <a th:unless="${sd.getContractDetailId()}" class="btn btn-light"><i class="fas fa-smile-wink"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/common-layout :: footer"></div>
+</body>
+</html>
