@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Smartphone</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>Edit Smartphone </h1>
+<a th:href="@{/smartphones}">Back</a>
+<div>
+    <div id="smartPhoneFromResponse"></div>
+</div>
+<form id="smartphoneForm" th:object="${smartphone}">
+    <table>
+        <tbody>
+        <tr>
+            <td>Producer:</td>
+            <td>
+                <select th:field="*{producer}">
+                    <option value="Nokia" th:checked="*{producer.equals('Nokia')}">Nokia</option>
+                    <option value="Apple" th:checked="*{producer.equals('Apple')}">Apple</option>
+                    <option value="HTC" th:checked="*{producer.equals('HTC')}">HTC</option>
+                    <option value="Samsung" th:checked="*{producer.equals('Samsung')}">Samsung</option>
+                    <option value="Xiaomi" th:checked="*{producer.equals('Xiaomi')}">Xiaomi</option>
+                    <option value="Oppo" th:checked="*{producer.equals('Oppo')}">Oppo</option>
+                    <option value="Google" th:checked="*{producer.equals('Google')}">Google</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Model</td>
+            <td><input type="text" th:field="*{model}"></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input type="text" th:field="*{price}"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Update</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<script>
+    $(document).ready(function () {
+        $("#smartphoneForm").submit(function (event) {
+            let producer = $("#producer").val();
+            let model = $("#model").val();
+            let price = $("#price").val();
+            let json = {"producer": producer, "model": model, "price": price};
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type : "POST",
+                data: JSON.stringify(json),
+                url: $(this).attr("action"),
+                success: function(smartphone) {
+                    var respContent = "";
+                    respContent += "<span class='success'>Smartphone was updated: [";
+                    respContent += smartphone.producer + " : ";
+                    respContent += smartphone.model + " : " ;
+                    respContent += smartphone.price + "]</span>"
+                    $("#smartPhoneFromResponse").html(respContent);
+                }
+            });
+            event.preventDefault();
+        });
+    });
+</script>
+</body>
+</html>
