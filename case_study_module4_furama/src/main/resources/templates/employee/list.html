@@ -41,14 +41,10 @@
                             <th>Name</th>
                             <th>Birthday</th>
                             <th>Id card</th>
-                            <th>Salary</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Address</th>
                             <th>Position</th>
-                            <th>Education degree</th>
-                            <th>Division</th>
-                            <th>User</th>
+                            <th>Detail</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -58,18 +54,13 @@
                             <td th:text="${employee.employeeName}"></td>
                             <td th:text="${employee.employeeBirthday}"></td>
                             <td th:text="${employee.employeeIdCard}"></td>
-                            <td th:text="${employee.employeeSalary}"></td>
                             <td th:text="${employee.employeePhone}"></td>
                             <td th:text="${employee.employeeEmail}"></td>
-                            <td th:text="${employee.employeeAddress}"></td>
                             <td th:if="${employee.position}" th:text="${employee.position.positionName}"></td>
                             <td th:unless="${employee.position}"></td>
-                            <td th:if="${employee.educationDegree}" th:text="${employee.educationDegree.educationDegreeName}"></td>
-                            <td th:unless="${employee.educationDegree}"></td>
-                            <td th:if="${employee.division}" th:text="${employee.division.divisionName}"></td>
-                            <td th:unless="${employee.division}"></td>
-                            <td th:if="${employee.user}" th:text="${employee.user.username}"></td>
-                            <td th:unless="${employee.user}"></td>
+                            <td>
+                                <button type="button" th:onclick="|showDetailEmployee('${employee.employeeId}')|" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>
+                            </td>
                             <td>
                                 <a th:href="@{/employee/edit/{id} (id=${employee.employeeId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             </td>
@@ -97,6 +88,136 @@
                th:href="@{'/employee'(page=${employees.number + 1},employeeName=${employeeName},employeePhone=${employeePhone},positionId=${positionId})}">Next</a>
         </div>
     </div>
+    </div>
+</div>
+
+<!-- Modal view detail -->
+<div class="modal hide fade" id="modalViewEmployeeId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Employee detail</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="employeeName" class="form-label">Name: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="employeeName" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="employeeBirthday" class="form-label">Birthday: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="employeeBirthday" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="employeeIdCard" class="form-label">Id card: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="employeeIdCard" disabled>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="employeeSalary" class="form-label">Salary: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="employeeSalary" disabled>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="employeePhone" class="form-label">Phone: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="employeePhone" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="employeeEmail" class="form-label">Email: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="employeeEmail" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="employeeAddress" class="form-label">Address: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="employeeAddress" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="position" class="form-label">Position: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="position" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="educationDegree" class="form-label">Education degree: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="educationDegree" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="division" class="form-label">Division: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="division" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="user" class="form-label">User: </label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="user" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="closeModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -174,6 +295,40 @@
 
     function submitFormDeleteMultiple() {
         document.getElementById("formDeleteMultiple").submit();
+    }
+
+</script>
+
+<script type="text/javascript">
+    function showDetailEmployee(id) {
+        $.ajax ({
+            headers:{
+                'Accept': "application/json",
+                'Content-Type': "application/json"
+            },
+            type: "GET",
+            url: "/employee/view/" + id,
+            success: function (employee) {
+                document.getElementById("employeeName").value = employee.employeeName
+                document.getElementById("employeeBirthday").value = employee.employeeBirthday
+                document.getElementById("employeeIdCard").value = employee.employeeIdCard
+                document.getElementById("employeeSalary").value = employee.employeeSalary
+                document.getElementById("employeePhone").value = employee.employeePhone
+                document.getElementById("employeeEmail").value = employee.employeeEmail
+                document.getElementById("employeeAddress").value = employee.employeeAddress
+                document.getElementById("position").value = employee.position.positionName
+                document.getElementById("educationDegree").value = employee.educationDegree.educationDegreeName
+                document.getElementById("division").value = employee.division.divisionName
+                document.getElementById("user").value = employee.user.username
+                $('#modalViewEmployeeId').modal('show');
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    function closeModal() {
+        $('#modalViewEmployeeId').modal('hide');
     }
 </script>
 </body>

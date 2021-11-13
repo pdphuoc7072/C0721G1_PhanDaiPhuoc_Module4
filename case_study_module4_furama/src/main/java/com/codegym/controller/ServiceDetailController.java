@@ -3,6 +3,8 @@ package com.codegym.controller;
 import com.codegym.dto.ServiceDetail;
 import com.codegym.service.IServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +27,9 @@ public class ServiceDetailController {
         return modelAndView;
     }
 
-    @GetMapping("/detail/{contractId}")
-    public ModelAndView listById (@PathVariable Integer contractId) {
-        List<ServiceDetail> serviceDetailByIdList = serviceService.listServiceDetailById(contractId);
-        ModelAndView modelAndView = new ModelAndView("service_detail/detail");
-        modelAndView.addObject("serviceDetailByIdList", serviceDetailByIdList);
-        return modelAndView;
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<?> listById (@PathVariable Integer id) {
+        List<ServiceDetail> serviceDetail = serviceService.listServiceDetailById(id);
+        return new ResponseEntity<>(serviceDetail, HttpStatus.OK);
     }
 }

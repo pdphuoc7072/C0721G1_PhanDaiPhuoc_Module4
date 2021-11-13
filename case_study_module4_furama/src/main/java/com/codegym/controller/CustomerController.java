@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -165,5 +167,11 @@ public class CustomerController {
             customerService.remove(Long.valueOf(idCustomerMultipleArray[i]));
         }
         return "redirect:/customer";
+    }
+
+    @GetMapping("/view/{id}")
+    public ResponseEntity<?> view (@PathVariable Long id) {
+        Optional<Customer> customer = customerService.findById(id);
+        return new ResponseEntity<>(customer.get(), HttpStatus.OK);
     }
 }
