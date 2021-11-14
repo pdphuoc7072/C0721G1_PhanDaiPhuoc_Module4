@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="/common-layout :: head">
 </head>
 <body>
@@ -13,15 +14,19 @@
             <div class="container-fluid">
                 <div class="row m-4 d-flex">
                     <div class="col-2">
-                        <a th:href="@{/employee/create}" class="btn btn-success">
-                            Add new employee
-                        </a>
+                        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a th:href="@{/employee/admin/create}" class="btn btn-success">
+                                Add new employee
+                            </a>
+                        </div>
                     </div>
                     <div class="col-2">
-                        <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#modalDeleteMultiple">
-                            Delete Multiple
-                        </button>
+                        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#modalDeleteMultiple">
+                                Delete Multiple
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <form class="d-flex m-4">
@@ -45,8 +50,10 @@
                             <th>Email</th>
                             <th>Position</th>
                             <th>Detail</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </div>
                         </tr>
                         </thead>
                         <tbody>
@@ -59,17 +66,24 @@
                             <td th:if="${employee.position}" th:text="${employee.position.positionName}"></td>
                             <td th:unless="${employee.position}"></td>
                             <td>
-                                <button type="button" th:onclick="|showDetailEmployee('${employee.employeeId}')|" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>
+                                <button type="button" th:onclick="|showDetailEmployee('${employee.employeeId}')|"
+                                        class="btn btn-primary"><i class="fas fa-info-circle"></i></button>
                             </td>
                             <td>
-                                <a th:href="@{/employee/edit/{id} (id=${employee.employeeId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                                    <a th:href="@{/employee/edit/{id} (id=${employee.employeeId})}"
+                                       class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                </div>
                             </td>
                             <td>
-                                <button th:onclick="|deleteByModal('${employee.employeeId}')|" type="button"
-                                        class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                                <input type="checkbox" th:value="${employee.employeeId}">
+                                <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                                    <button th:onclick="|deleteByModal('${employee.employeeId}')|" type="button"
+                                            class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    <input type="checkbox" th:value="${employee.employeeId}">
+                                </div>
+
                             </td>
                         </tr>
                         </tbody>
@@ -232,7 +246,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="formDelete" th:action="@{/employee/delete}" hidden>
+                <form method="post" id="formDelete" th:action="@{/employee/admin/delete}" hidden>
                     <input type="text" name="idEmployee" id="idEmployee">
                 </form>
                 Are you sure delete this employee ?
@@ -257,7 +271,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="formDeleteMultiple" th:action="@{/employee/deleteMultiple}" hidden>
+                <form method="post" id="formDeleteMultiple" th:action="@{/employee/admin/deleteMultiple}" hidden>
                     <input type="text" name="idEmployeeMultiple" id="idEmployeeMultiple">
                 </form>
                 Are you sure delete this multiple employee ?

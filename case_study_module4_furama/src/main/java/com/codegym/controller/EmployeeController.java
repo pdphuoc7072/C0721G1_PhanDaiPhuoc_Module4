@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,9 @@ public class EmployeeController {
     @Autowired
     private IDivisionService divisionService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @ModelAttribute("positions")
     public Iterable<Position> positions () {
         return positionService.findAll();
@@ -55,16 +59,16 @@ public class EmployeeController {
         return divisionService.findAll();
     }
 
-    @GetMapping("/create")
+    @GetMapping("/admin/create")
     public ModelAndView showCreateForm () {
         ModelAndView modelAndView = new ModelAndView("employee/create");
         modelAndView.addObject("employeeDto", new EmployeeDto());
         return modelAndView;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/admin/save")
     public String save (@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
-        employeeDto.getUser().setPassword("123456");
+        employeeDto.getUser().setPassword(passwordEncoder.encode("123456"));
         boolean checkIdCard = true;
         boolean checkPhone = true;
         boolean checkEmail = true;
@@ -97,7 +101,7 @@ public class EmployeeController {
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/admin/edit/{id}")
     public ModelAndView showEditForm(@PathVariable Long id) {
         Optional<Employee> employee = employeeService.findById(id);
         EmployeeDto employeeDto = new EmployeeDto();
@@ -112,7 +116,7 @@ public class EmployeeController {
         return modelAndView;
     }
 
-    @PostMapping("/update")
+    @PostMapping("/admin/update")
     public String update (@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
         List<Employee> employees = employeeService.findAll();
         Optional<Employee> employeeOptional = employeeService.findById(employeeDto.getEmployeeId());
@@ -161,13 +165,13 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/admin/delete")
     public String delete (@RequestParam Long idEmployee) {
         employeeService.remove(idEmployee);
         return "redirect:/employee";
     }
 
-    @PostMapping("/deleteMultiple")
+    @PostMapping("/admin/deleteMultiple")
     public String deleteMultiple (@RequestParam String idEmployeeMultiple) {
         String[] idEmployeeMultipleArray = idEmployeeMultiple.split(",");
         for (int i = 0; i < idEmployeeMultipleArray.length; i++) {
