@@ -17,15 +17,15 @@ public class Contract {
 
     private Double contractTotalMoney;
 
-    @ManyToOne(targetEntity = Employee.class)
+    @ManyToOne(targetEntity = Employee.class, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
     private Employee employee;
 
-    @ManyToOne(targetEntity = Customer.class)
+    @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
     private Customer customer;
 
-    @ManyToOne(targetEntity = Service.class)
+    @ManyToOne(targetEntity = Service.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "service_id", referencedColumnName = "serviceId")
     private Service service;
 

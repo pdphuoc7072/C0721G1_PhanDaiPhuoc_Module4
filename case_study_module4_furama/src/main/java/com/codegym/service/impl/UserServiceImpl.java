@@ -33,4 +33,19 @@ public class UserServiceImpl implements IUserService {
     public void remove(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void insertUserRole(Long user_id, Long role_id) {
+        userRepository.insertUserRole(user_id, role_id);
+    }
+
+    @Override
+    public void insertUserRoleMultiple(Long user_id, Long role_id_1, Long role_id_2) {
+        userRepository.insertUserRoleMultiple(user_id, role_id_1, role_id_2);
+    }
 }

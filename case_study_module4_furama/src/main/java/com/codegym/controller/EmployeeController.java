@@ -1,14 +1,8 @@
 package com.codegym.controller;
 
 import com.codegym.dto.EmployeeDto;
-import com.codegym.model.Division;
-import com.codegym.model.EducationDegree;
-import com.codegym.model.Employee;
-import com.codegym.model.Position;
-import com.codegym.service.IDivisionService;
-import com.codegym.service.IEducationDegreeService;
-import com.codegym.service.IEmployeeService;
-import com.codegym.service.IPositionService;
+import com.codegym.model.*;
+import com.codegym.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -42,33 +35,49 @@ public class EmployeeController {
     private IDivisionService divisionService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private IUserService userService;
+
+    @Autowired
+    private IRoleService roleService;
 
     @ModelAttribute("positions")
-    public Iterable<Position> positions () {
+    public Iterable<Position> positions() {
         return positionService.findAll();
     }
 
     @ModelAttribute("educationDegrees")
-    public Iterable<EducationDegree> educationDegrees () {
+    public Iterable<EducationDegree> educationDegrees() {
         return educationDegreeService.findAll();
     }
 
     @ModelAttribute("divisions")
-    public Iterable<Division> divisions () {
+    public Iterable<Division> divisions() {
         return divisionService.findAll();
     }
 
     @GetMapping("/admin/create")
-    public ModelAndView showCreateForm () {
+    public ModelAndView showCreateForm() {
         ModelAndView modelAndView = new ModelAndView("employee/create");
         modelAndView.addObject("employeeDto", new EmployeeDto());
         return modelAndView;
     }
 
     @PostMapping("/admin/save")
-    public String save (@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
-        employeeDto.getUser().setPassword(passwordEncoder.encode("123456"));
+    public String save(@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
+        List<Role> roles = roleService.findAll();
+        User user = userService.findByUsername(employeeDto.getUser().getUsername());
+        employeeDto.getUser().setUserId(user.getUserId());
+        if (employeeDto.getPosition().getPositionId() == 5 || employeeDto.getPosition().getPositionId() == 6) {
+            for (Role role : roles) {
+                userService.insertUserRole(employeeDto.getUser().getUserId(), role.getRoleId());
+            }
+        } else {
+            for (Role role : roles) {
+                if (role.getRoleId() == 2) {
+                    userService.insertUserRole(employeeDto.getUser().getUserId(), role.getRoleId());
+                }
+            }
+        }
         boolean checkIdCard = true;
         boolean checkPhone = true;
         boolean checkEmail = true;
@@ -88,10 +97,10 @@ public class EmployeeController {
     }
 
     @GetMapping("")
-    public ModelAndView list (@RequestParam(value = "employeeName", defaultValue = "", required = false) String employeeName,
-                              @RequestParam (value = "employeePhone", defaultValue = "", required = false) String employeePhone,
-                              @RequestParam (value = "positionId", defaultValue = "", required = false) String positionId,
-                              @PageableDefault(size = 3) Pageable pageable) {
+    public ModelAndView list(@RequestParam(value = "employeeName", defaultValue = "", required = false) String employeeName,
+                             @RequestParam(value = "employeePhone", defaultValue = "", required = false) String employeePhone,
+                             @RequestParam(value = "positionId", defaultValue = "", required = false) String positionId,
+                             @PageableDefault(size = 3) Pageable pageable) {
         Page<Employee> employees = employeeService.findAll(pageable, employeeName, employeePhone, positionId);
         ModelAndView modelAndView = new ModelAndView("/employee/list");
         modelAndView.addObject("employees", employees);
@@ -117,9 +126,11 @@ public class EmployeeController {
     }
 
     @PostMapping("/admin/update")
-    public String update (@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
+    public String update(@Valid @ModelAttribute("employeeDto") EmployeeDto employeeDto, BindingResult bindingResult) {
         List<Employee> employees = employeeService.findAll();
         Optional<Employee> employeeOptional = employeeService.findById(employeeDto.getEmployeeId());
+        employeeDto.setUser(employeeOptional.get().getUser());
+
         String oldIdCard = employeeOptional.get().getEmployeeIdCard();
         String oldPhone = employeeOptional.get().getEmployeePhone();
         String oldEmail = employeeOptional.get().getEmployeeEmail();
@@ -166,13 +177,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/admin/delete")
-    public String delete (@RequestParam Long idEmployee) {
+    public String delete(@RequestParam Long idEmployee) {
         employeeService.remove(idEmployee);
         return "redirect:/employee";
     }
 
     @PostMapping("/admin/deleteMultiple")
-    public String deleteMultiple (@RequestParam String idEmployeeMultiple) {
+    public String deleteMultiple(@RequestParam String idEmployeeMultiple) {
         String[] idEmployeeMultipleArray = idEmployeeMultiple.split(",");
         for (int i = 0; i < idEmployeeMultipleArray.length; i++) {
             employeeService.remove(Long.valueOf(idEmployeeMultipleArray[i]));
@@ -181,7 +192,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/view/{id}")
-    public ResponseEntity<?> view (@PathVariable Long id) {
+    public ResponseEntity<?> view(@PathVariable Long id) {
         Optional<Employee> employee = employeeService.findById(id);
         return new ResponseEntity<>(employee.get(), HttpStatus.OK);
     }

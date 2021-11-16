@@ -169,7 +169,8 @@
                                         <label for="user" class="form-label">User: </label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" id="user" th:field="*{user.username}" disabled>
+                                        <input type="text" class="form-control" id="user" th:field="*{user.userId}" th:value="${employeeDto.user.userId}"
+                                        th:text="${employeeDto.user.username}">
                                     </div>
                                 </div>
                             </div>

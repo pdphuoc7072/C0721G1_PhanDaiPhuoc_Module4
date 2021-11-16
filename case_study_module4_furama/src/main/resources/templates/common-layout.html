@@ -84,7 +84,11 @@
                                 <a class="dropdown-item" th:href="@{/employee/admin/create}">Create new employee</a>
                             </div>
                         </li>
-                        <li><a class="dropdown-item" th:href="@{/employee}">Go to list employees</a></li>
+                        <li>
+                            <div sec:authorize="hasAuthority('ROLE_MEMBER')">
+                                <a class="dropdown-item" th:href="@{/employee}">Go to list employees</a>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -93,8 +97,11 @@
                         Customer
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="customerDropdown">
+
                         <li><a class="dropdown-item" th:href="@{/customer/create}">Create new customer</a></li>
                         <li><a class="dropdown-item" th:href="@{/customer}">Go to list customers</a></li>
+
+
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -133,21 +140,21 @@
                         Other
                     </a>
                     <ul class="dropdown-menu dropright" aria-labelledby="navbarDropdownMenuLink">
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">Position</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/position/create}">Create new position</a></li>
                                 <li><a class="dropdown-item" th:href="@{/position}">List position</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">Division</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/division/create}">Create new division</a></li>
                                 <li><a class="dropdown-item" th:href="@{/division}">List division</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">Education degree</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/education-degree/create}">Create new education
@@ -156,21 +163,21 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">User</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/user/create}">Create new user</a></li>
                                 <li><a class="dropdown-item" th:href="@{/user}">List user</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">Role</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Create new role</a></li>
                                 <li><a class="dropdown-item" href="#">List role</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">Customer type</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/customer-type/create}">Create new customer
@@ -178,7 +185,7 @@
                                 <li><a class="dropdown-item" th:href="@{/customer-type}">List customer type</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">Service type</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/service-type/create}">Create new service
@@ -186,12 +193,19 @@
                                 <li><a class="dropdown-item" th:href="@{/service-type}">List service type</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu">
+                        <li class="dropdown-submenu" sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a class="dropdown-item dropdown-toggle" href="#">Rent type</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:href="@{/rent-type/create}">Create new rent type</a>
                                 </li>
                                 <li><a class="dropdown-item" th:href="@{/rent-type}">List rent type</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Support</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Contact with us</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

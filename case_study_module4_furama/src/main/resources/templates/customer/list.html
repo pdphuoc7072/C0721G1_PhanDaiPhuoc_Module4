@@ -34,6 +34,11 @@
                     </select>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <div class="d-flex m-4">
+                    <p class="text-success">
+                        Hiện tại đang có: <span th:text="${customers.getTotalElements()}"></span> khách hàng
+                    </p>
+                </div>
                 <div class="container-fluid">
                     <table class="table table-striped table-hover">
                         <thead class="thead-inverse">
@@ -64,10 +69,12 @@
                                 <a th:href="@{/customer/edit/{id} (id=${customer.customerId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <button th:onclick="|deleteByModal('${customer.customerId}')|" type="button"
-                                        class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+<!--                                <button th:onclick="|deleteByModal('${customer.customerId}')|" type="button"-->
+<!--                                        class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">-->
+<!--                                    <i class="fas fa-trash-alt"></i>-->
+<!--                                </button>-->
+                                <button type="button" th:onclick="|showCustomerForDelete('${customer.customerId}')|"
+                                        class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                 <input type="checkbox" th:value="${customer.customerId}">
                             </td>
                         </tr>
@@ -99,6 +106,7 @@
             </div>
             <div class="modal-body">
                 <form>
+                    <input type="hidden" id="customerId">
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-3">
@@ -194,6 +202,10 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button th:onclick="|deleteByModalAfterAjax()|" type="button" id="buttonDelete"
+                        class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
+                    Delete
+                </button>
                 <button type="button" onclick="closeModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -218,7 +230,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" th:onclick="submitForm()">Yes</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
             </div>
         </div>
     </div>
@@ -260,6 +272,10 @@
         document.getElementById("formDelete").submit();
     }
 
+    function deleteByModalAfterAjax () {
+        document.getElementById("idCustomer").value = document.getElementById("customerId").value;
+    }
+
     function getIdMultiple() {
         var array = [];
         var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
@@ -278,7 +294,7 @@
 </script>
 
 <script type="text/javascript">
-    function showDetailCustomer(id) {
+    function showCustomer(id, string) {
         $.ajax ({
             headers:{
                 'Accept': "application/json",
@@ -287,6 +303,7 @@
             type: "GET",
             url: "/customer/view/" + id,
             success: function (customer) {
+                document.getElementById("customerId").value = customer.customerId
                 document.getElementById("customerCode").value = customer.customerCode
                 document.getElementById("customerName").value = customer.customerName
                 document.getElementById("customerBirthday").value = customer.customerBirthday
@@ -306,7 +323,15 @@
                 document.getElementById("customerEmail").value = customer.customerEmail
                 document.getElementById("customerAddress").value = customer.customerAddress
                 document.getElementById("customerType").value = customer.customerType.customerTypeName
+
                 $('#modalViewCustomerId').modal('show');
+
+                if (string == 'detail') {
+                    $('#buttonDelete').hide();
+                } else {
+                    $('#buttonDelete').show();
+                }
+
             },
             error: function (err) {
                 console.log(err);
@@ -315,6 +340,14 @@
     }
     function closeModal() {
         $('#modalViewCustomerId').modal('hide');
+    }
+    function showCustomerForDelete(id) {
+        let stringDelete = 'delete';
+        showCustomer(id, stringDelete);
+    }
+    function showDetailCustomer(id) {
+        let stringDetail = 'detail';
+        showCustomer(id, stringDetail);
     }
 </script>
 </body>

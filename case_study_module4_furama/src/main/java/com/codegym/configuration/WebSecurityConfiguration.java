@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -34,27 +32,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/home").access("hasRole('ROLE_MEMBER')")
+                .antMatchers("/home", "/employee", "/customer").access("hasRole('ROLE_MEMBER')")
                 .antMatchers("/employee/admin/**").access("hasRole('ROLE_ADMIN') and hasRole('ROLE_MEMBER')")
+//                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/login")
+                .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login?error")
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/403");
-        http.authorizeRequests().and() //
-                .rememberMe().tokenRepository(this.persistentTokenRepository())
-                .tokenValiditySeconds(1 * 24 * 60 * 60);
+                .accessDeniedPage("/403")
+                .and()
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000).rememberMeParameter("remember-me");
     }
-
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
-        return memory;
-    }
-
 }

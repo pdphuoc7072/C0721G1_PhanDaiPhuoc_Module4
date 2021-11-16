@@ -35,11 +35,11 @@ public class Employee {
     @JoinColumn(name = "division_id", referencedColumnName = "divisionId")
     private Division division;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne (cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private Set<Contract> contracts;
 
     public Employee() {

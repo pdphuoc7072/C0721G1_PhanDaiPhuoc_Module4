@@ -1,9 +1,9 @@
 package com.codegym.controller;
 
-import com.codegym.model.Division;
 import com.codegym.model.User;
 import com.codegym.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("")
     private ModelAndView list () {
@@ -33,6 +36,7 @@ public class UserController {
 
     @PostMapping("/save")
     public String save (@ModelAttribute User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
         return "redirect:/user";
     }
