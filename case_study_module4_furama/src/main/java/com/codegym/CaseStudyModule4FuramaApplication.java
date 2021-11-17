@@ -8,6 +8,8 @@ public class CaseStudyModule4FuramaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CaseStudyModule4FuramaApplication.class, args);
+
     }
+
 
 }

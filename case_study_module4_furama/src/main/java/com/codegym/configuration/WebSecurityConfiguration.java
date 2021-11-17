@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -31,21 +33,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/home", "/employee", "/customer").access("hasRole('ROLE_MEMBER')")
-                .antMatchers("/employee/admin/**").access("hasRole('ROLE_ADMIN') and hasRole('ROLE_MEMBER')")
-//                .anyRequest().authenticated()
-                .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/home").permitAll()
                 .failureUrl("/login?error")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/logo-furama-resort-danang.png").permitAll()
+                .antMatchers("/employee/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/403")
                 .and()
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000).rememberMeParameter("remember-me");
+                .rememberMe().tokenRepository(this.persistentTokenRepository()).tokenValiditySeconds(60*60*24);
+    }
+
+    private PersistentTokenRepository persistentTokenRepository () {
+        InMemoryTokenRepositoryImpl inMemoryTokenRepository = new InMemoryTokenRepositoryImpl();
+        return inMemoryTokenRepository;
     }
 }

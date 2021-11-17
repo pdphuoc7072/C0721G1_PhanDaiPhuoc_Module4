@@ -69,10 +69,6 @@
                                 <a th:href="@{/customer/edit/{id} (id=${customer.customerId})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-<!--                                <button th:onclick="|deleteByModal('${customer.customerId}')|" type="button"-->
-<!--                                        class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">-->
-<!--                                    <i class="fas fa-trash-alt"></i>-->
-<!--                                </button>-->
                                 <button type="button" th:onclick="|showCustomerForDelete('${customer.customerId}')|"
                                         class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                 <input type="checkbox" th:value="${customer.customerId}">
