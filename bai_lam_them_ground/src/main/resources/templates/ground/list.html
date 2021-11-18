@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ground</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row m-4 d-flex">
+        <div class="col-2">
+            <a th:href="@{/ground/create}" class="btn btn-success">
+                Add new ground
+            </a>
+        </div>
+        <div class="col-2">
+            <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger" data-toggle="modal"
+                    data-target="#modalDeleteMultiple">
+                Delete Multiple
+            </button>
+        </div>
+    </div>
+    <form class="d-flex m-4">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm theo tầng" aria-label="Search"
+               name="floor">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm theo giá cho thuê" aria-label="Search"
+               name="money">
+        <select name="groundTypeId">
+            <option selected value="">Chọn loại mặt bằng</option>
+            <option th:each="gts : ${groundTypes}" th:value="${gts.id}"
+                    th:text="${gts.name}"></option>
+        </select>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <div class="container-fluid">
+        <table class="table table-striped table-hover">
+            <thead class="thead-inverse">
+            <tr>
+                <th>Mã mặt bằng</th>
+                <th>Diện tích</th>
+                <th>Trạng thái</th>
+                <th>Tầng</th>
+                <th>Loại văn phòng</th>
+                <th>Giá cho thuê</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="g : ${grounds}">
+                <td th:text="${g.code}"></td>
+                <td th:text="${g.area}"></td>
+                <td th:if="${g.status}" th:text="${g.status.name}"></td>
+                <td th:unless="${g.status}"></td>
+                <td th:text="${g.floor}"></td>
+                <td th:if="${g.groundType}" th:text="${g.groundType.name}"></td>
+                <td th:unless="${g.groundType}"></td>
+                <td th:text="${g.money}"></td>
+                <td th:text="${g.startDate}"></td>
+                <td th:text="${g.endDate}"></td>
+                <td>
+                    <a th:href="@{/ground/edit/{id} (id=${g.id})}"
+                       class="btn btn-warning"><i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <button th:onclick="|deleteByModal(${g.id})|" type="button"
+                            class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <input type="checkbox" th:value="${g.id}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <a th:if="${grounds.hasPrevious()}" class="btn btn-light"
+               th:href="@{'/ground'(page=${grounds.number - 1},floor=${floor},money=${money},groundTypeId=${groundTypeId})}">Previous</a>
+            <span th:text="${grounds.number + 1}"></span>/<span th:text="${grounds.totalPages}"></span>
+            <a th:if="${grounds.hasNext()}" class="btn btn-light"
+               th:href="@{'/ground'(page=${grounds.number + 1},floor=${floor},money=${money},groundTypeId=${groundTypeId})}">Next</a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDelete" th:action="@{/ground/delete}" hidden>
+                    <input type="text" name="idGround" id="idGround">
+                </form>
+                Bạn có chắc chắn muốn xóa mặt bằng với mã số <span id="groundCode"></span> không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitForm()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete multiple-->
+<div class="modal fade" id="modalDeleteMultiple" tabindex="-1" aria-labelledby="deleteMultipleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMultipleModalLabel">Confirm delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="formDeleteMultiple" th:action="@{/ground/deleteMultiple}" hidden>
+                    <input type="text" name="idGroundMultiple" id="idGroundMultiple">
+                </form>
+                Are you sure delete this multiple ground ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" th:onclick="submitFormDeleteMultiple()">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<script>
+    function deleteByModal(id) {
+        document.getElementById("idGround").value = id;
+        document.getElementById("groundCode").innerText = id;
+    }
+
+    function submitForm() {
+        document.getElementById("formDelete").submit();
+    }
+
+    function getIdMultiple() {
+        var array = [];
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            array.push(checkboxes[i].value);
+        }
+        for(let i=0;i<array.length;i++){
+            document.getElementById("idGroundMultiple").value += array[i] + ",";
+        }
+    }
+
+    function submitFormDeleteMultiple() {
+        document.getElementById("formDeleteMultiple").submit();
+    }
+
+</script>
+
+</body>
+</html>

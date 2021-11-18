@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ground</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row m-4 d-flex">
+        <div class="col-5">
+            <a th:href="@{/ground}" class="btn btn-success">
+                Back to list ground
+            </a>
+        </div>
+    </div>
+    <div class="row m-4 d-flex">
+        <div class="col-6">
+            <form th:action="@{/ground/update}" th:object="${groundDto}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="code" class="form-label">Ground code: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="code"
+                                   aria-describedby="codeError" th:field="*{code}">
+                            <div id="codeError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('code')}" th:errors="*{code}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="area" class="form-label">Diện tích: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="area"
+                                   aria-describedby="areaError" th:field="*{area}">
+                            <div id="areaError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('area')}" th:errors="*{area}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="status" class="form-label">Status: </label>
+                        </div>
+                        <div class="col-9">
+                            <select th:field="*{status}" id="status" required>
+                                <option th:each="s : ${statuses}" th:value="${s.id}" th:text="${s.name}"
+                                        th:selected="(${s.id} == *{status.id})"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="floor" class="form-label">Tầng: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="floor"
+                                   aria-describedby="floorError" th:field="*{floor}">
+                            <div id="floorError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="groundType" class="form-label">Loại mặt bằng: </label>
+                        </div>
+                        <div class="col-9">
+                            <select th:field="*{groundType}" id="groundType" required>
+                                <option th:each="gts : ${groundTypes}" th:value="${gts.id}" th:text="${gts.name}"
+                                        th:selected="(${gts.id} == *{groundType.id})"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="money" class="form-label">Giá cho thuê: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="money"
+                                   aria-describedby="moneyError" th:field="*{money}">
+                            <div id="moneyError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('money')}" th:errors="*{money}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="startDate" class="form-label">Ngày bắt đầu: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" class="form-control" id="startDate"
+                                   aria-describedby="startDateError" th:field="*{startDate}">
+                            <div id="startDateError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="endDate" class="form-label">Ngày kết thúc: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" class="form-control" id="endDate"
+                                   aria-describedby="endDateError" th:field="*{endDate}">
+                            <div id="endDateError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

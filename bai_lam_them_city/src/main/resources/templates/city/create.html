@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>City</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row m-4 d-flex">
+        <div class="col-5">
+            <a th:href="@{/city}" class="btn btn-success">
+                Back to list city
+            </a>
+        </div>
+    </div>
+    <div class="row m-4 d-flex">
+        <div class="col-6">
+            <form th:action="@{/city/save}" th:object="${cityDto}" method="post">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="code" class="form-label">City code: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="code"
+                                   aria-describedby="codeError" th:field="*{code}">
+                            <div id="codeError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('code')}" th:errors="*{code}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="name" class="form-label">City name: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="name"
+                                   aria-describedby="nameError" th:field="*{name}">
+                            <div id="nameError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="area" class="form-label">Area: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="area"
+                                   aria-describedby="areaError" th:field="*{area}">
+                            <div id="areaError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('area')}" th:errors="*{area}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="population" class="form-label">Population: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="population"
+                                   aria-describedby="populationError" th:field="*{population}">
+                            <div id="populationError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('population')}" th:errors="*{population}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="gdp" class="form-label">Gdp: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="gdp"
+                                   aria-describedby="gdpError" th:field="*{gdp}">
+                            <div id="gdpError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('gdp')}" th:errors="*{gdp}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="description" class="form-label">Description: </label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" id="description"
+                                   aria-describedby="descriptionError" th:field="*{description}">
+                            <div id="descriptionError" class="form-text text-danger"
+                                 th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="country" class="form-label">Country: </label>
+                        </div>
+                        <div class="col-9">
+                            <select th:field="*{country}" id="country" required>
+                                <option selected value="">Select</option>
+                                <option th:each="c : ${countries}" th:value="${c.id}"
+                                        th:text="${c.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
