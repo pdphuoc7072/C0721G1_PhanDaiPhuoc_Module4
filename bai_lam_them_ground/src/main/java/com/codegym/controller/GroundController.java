@@ -56,8 +56,10 @@ public class GroundController {
     @PostMapping("/save")
     public String save(@Valid @ModelAttribute("groundDto") GroundDto groundDto, BindingResult bindingResult) {
         boolean checkCode = true;
+        boolean checkDate = true;
         groundDto.setGrounds(groundService.findAll());
         groundDto.setCheckCode(checkCode);
+        groundDto.setCheckDate(checkDate);
         groundDto.validate(groundDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return "ground/create";
@@ -104,6 +106,7 @@ public class GroundController {
         Optional<Ground> groundOptional = groundService.findById(groundDto.getId());
         String oldCode = groundOptional.get().getCode();
         boolean checkCode = false;
+        boolean checkDate = true;
 
         if (!oldCode.equals(groundDto.getCode())) {
             checkCode = true;
@@ -111,6 +114,13 @@ public class GroundController {
             groundDto.setCheckCode(checkCode);
             groundDto.validate(groundDto, bindingResult);
             checkCode = false;
+        }
+
+        if (checkDate) {
+            groundDto.setGrounds(grounds);
+            groundDto.setCheckCode(checkCode);
+            groundDto.setCheckDate(checkDate);
+            groundDto.validate(groundDto, bindingResult);
         }
 
         if (bindingResult.hasFieldErrors()) {

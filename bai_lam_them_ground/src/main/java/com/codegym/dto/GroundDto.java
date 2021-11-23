@@ -7,7 +7,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GroundDto implements Validator {
     private Long id;
@@ -135,12 +141,22 @@ public class GroundDto implements Validator {
 
     private boolean checkCode;
 
+    private boolean checkDate;
+
     public boolean isCheckCode() {
         return checkCode;
     }
 
     public void setCheckCode(boolean checkCode) {
         this.checkCode = checkCode;
+    }
+
+    public boolean isCheckDate() {
+        return checkDate;
+    }
+
+    public void setCheckDate(boolean checkDate) {
+        this.checkDate = checkDate;
     }
 
     @Override
@@ -151,6 +167,19 @@ public class GroundDto implements Validator {
                 if (groundDto.getCode().equals(ground.getCode())) {
                     errors.rejectValue("code", "code.equals", "Mã mặt bằng vừa thêm đã tồn tại.");
                 }
+            }
+        }
+        if (groundDto.checkDate) {
+            try {
+                Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(groundDto.getStartDate());
+                Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(groundDto.getEndDate());
+                long getDiff = endDate.getTime() - startDate.getTime();
+                long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
+                if (getDaysDiff < 180) {
+                    errors.rejectValue("endDate", "endDate.getDiff", "Ngày kết thúc phải lớn hơn ngày bắt đầu ít nhất 6 tháng.");
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
         }
     }
